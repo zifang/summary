@@ -25,6 +25,23 @@ export default {
     'vue-core-image-upload': VueCoreImageUpload
   },
   methods: {
+    methods: {
+      // 裁剪一定尺寸的图片
+      cutImg (url, size, verSize) {
+        let _url = ''
+        let _boolean = url.indexOf('jpg') > -1 || url.indexOf('jpeg') > -1 || url.indexOf('png') > -1 || url.indexOf('bmp') > -1
+        if (!_boolean) {
+          return url
+        }
+        if (url) {
+          let _splitImg = url.split('.')
+          let _typeImg = _splitImg[_splitImg.length - 1]
+          let _resultSplitImg = url.split('.' + _typeImg)[0]
+          _url = _resultSplitImg + '_' + size + 'x' + verSize + '.' + _typeImg
+        }
+        return _url
+      }
+    },
     getInfo () {
       // let params = {};
       userService.getUserInfo(this.$http, this.baseUrl, {}).then((response) => {
@@ -35,6 +52,7 @@ export default {
         }
       })
     },
+    // 上传图片
     imageuploaded (res) {
       if (res.code === SUCCESS) {
         this.imgUrl = res.model
