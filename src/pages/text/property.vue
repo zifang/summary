@@ -193,13 +193,6 @@
       } 
     });
 
-    
-    css-loader:在页面中以import或者require的形式引入css文件
-    安装less: less,less-loader
-    安装stylus: stylus,stylus-loader
-    安装sass: sass,sass-loader,node-sass
-
-
     node项目的部署安装
     和生产环境一样，需要安装pm2
     npm install pm2 -g
