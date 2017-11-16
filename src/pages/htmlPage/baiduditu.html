@@ -1,0 +1,130 @@
+<script type="text/javascript">
+	// 百度地图API功能
+
+	//创建map实例
+	var map = new BMap.Map('allmap');
+    //添加地图类型控件(地图、卫星、三维)
+    // map.addControl(new BMap.MapTypeControl());
+    //添加缩放平移控件
+    map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));
+    //添加比例尺控件
+    map.addControl(new BMap.ScaleControl());
+    //设置鼠标滚动缩放
+    // map.enableScrollWheelZoom(true);
+    var poi = new BMap.Point(113.668616,34.752339);
+    map.centerAndZoom(poi, 11);
+
+    //初始化车辆
+    initCar();
+
+    //绘边框
+    var overlays=[];
+    var overlaycomplete=function(e){
+    	//清除未保存的栅格
+    	// clearAll();
+    	overlays.push(e.overlay);
+    	if(confirm("确定要设置该围栏吗？")){
+    		var _obj=e.overlay.Ln;
+    		if(_obj){
+    			var str="";
+    			for(var i=0;i<_obj.length;i++){
+    				str+='"'+_obj[i].lng+','+_obj[i].lat+'"'+';';
+    			}
+    		}
+    		initDrawingManager();
+    		//移除原栅格
+    		// clearFence();
+    		alert(str);
+    		// clearAll();
+    	}else{
+    		clearAll();
+    	}
+    };
+    var styleOptions={
+    	strokeColor:"red",
+    	fillColor:"red",
+    	strokeWeight:2,
+    	strokeOpacity:0.8,
+    	fillOpacity:0.3,
+    	strokeStyle:'solid'
+    };
+    initDrawingManager();
+	//实例化鼠标绘制工具
+	function initDrawingManager(){
+		var drawingManager=new BMapLib.DrawingManager(map,{
+			isOpen:true,//是否开启绘制模式
+			enableDrawingTool:true,//是否显示工具条
+			drawingMode:BMAP_DRAWING_POLYGON,//默认使用线进行绘图
+			drawingToolOptions:{
+				anchor:BMAP_ANCHOR_TOP_RIGHT,
+				offset:new BMap.Size(5,5)
+			},
+			// polylineOptions:styleOptions,//线的样式
+			// circleOptions:styleOptions,//圆的样式
+			polygonOptions:styleOptions,//多边形的样式
+			// rectangleOptions:styleOptions//矩形的样式
+		});
+		drawingManager.addEventListener("overlaycomplete",overlaycomplete);
+	}
+
+	//初始化原栅格
+	var points=[];
+	var pointList='113.461071,34.747593;113.421977,34.889839;113.582954,34.950455;113.852014,34.821592;113.825568,34.633619;113.653093,34.63647';
+	var splitList=pointList.split(";");
+	for(var i=0;i<splitList.length;i++){
+		points[i]=new BMap.Point(splitList[i].split(",")[0],splitList[i].split(",")[1]);
+	}
+	var polygon=new BMap.Polygon(points,styleOptions);
+	// polygon.addEventListener("click",removeMap);
+	map.addOverlay(polygon);
+	function removeMap(){
+		if(confirm("确定要删除吗？")){
+			for(var i=0;i<points.length;i++){
+				map.removeOverlay(points[i]);
+			}
+			points.length=0;
+			map.removeOverlay(polygon);
+		}
+	}
+	//移除原栅格
+	function clearFence(){
+		for(var i=0;i<points.length;i++){
+			map.removeOverlay(points[i]);
+		}
+		points.length=0;
+		map.removeOverlay(polygon);
+	}
+	//重绘边线
+	function clearAll(){
+		for(var i=0;i<overlays.length;i++){
+			map.removeOverlay(overlays[i]);
+		}
+		overlays.length=0;
+	}
+	//初始化车辆坐标
+	function initCar(){
+		var opts={
+			width:250,//窗口宽度
+			height:80,//窗口高度
+			title:"信息窗口",//信息窗口标题
+			enableMessage:true,//设置匀速信息发送短息.
+			
+		};
+		$.getJSON("<c:url value='/vehiclegps/getgps.shtml'/>",function(data){
+			if(data){
+				for(var i=0;i<data.length;i++){
+					var _gps=data[i].gps.split(",");
+					var content=data[i].vehicleNum;
+					var marker=new BMap.Marker(new BMap.Point(_gps[0],_gps[1]));
+					map.addOverlay(marker);
+					marker.addEventListener("click",function(e){
+						// 添加事件，显示车牌号
+						var point=new BMap.Point(e.target.getPosition().lng,e.target.getPosition.lat);
+						var infoWindow=new BMap.InfoWindow(content,opts);
+						map.openInfoWindow(infoWindow,point);
+					});
+				}
+			}
+		});
+	}
+</script>

@@ -1,0 +1,1155 @@
+<%@ page language="java" contentType="text/html;charset=utf-8"
+pageEncoding="utf-8"%>
+<%@include file="../../common/taglibs.jsp"%>
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8"><meta content="郑州市加滋杰交通科技有限公司" name="author">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>学员报名审核</title>
+<%@include file="../../common/head.jsp"%>
+<link rel="stylesheet" href="<c:url value="/css/jquery-ui-1.10.4.custom.min.css"/>" />
+<script type="text/javascript" src="<c:url value="/js/vTicker.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery/jquery-ui-1.10.4.custom.min.js"/>"></script>
+
+<script type="text/javascript">
+$(function(){
+  
+     var $banner=$(".banner"),
+   $slideWrap=$(".banner-wrap"),
+   width=$banner.width()+20,
+   i=1,
+   page=1;
+   // 下一个
+   $(".next").click(function(e){
+    e.preventDefault();
+    var $_this=$(this);
+      var count=$slideWrap.find(".banner").length;
+    current_page=count/i-6;
+    if(!$slideWrap.is(":animated")){
+      if(page==current_page)
+      {
+        $slideWrap.animate({"left":0},'slow');	
+        page=1; 
+      }else{ 
+        $slideWrap.animate({"left":"-="+width},'slow');
+        page++;
+      }
+    }
+   });
+   // 上一个
+    $(".prev").click(function(e){
+     e.preventDefault();
+     var $_this=$(this);
+      var count=$slideWrap.find(".banner").length;
+    current_page=count/i; 
+    if(!$slideWrap.is(":animated")){
+      if(page==1){
+        $slideWrap.animate({"left":0},'slow');
+        page=1;
+      }else{
+        $slideWrap.animate({"left":"+="+width},'slow');
+        page--;
+      }
+    }
+   });
+  // 点击预览大图
+  var _windowHeight=windowHeight();
+  $(".thumbnails li a").on("click",function(e){
+    e.preventDefault();
+    var $_this=$(this),
+      _id=$_this.parent().find("img").attr("id"),
+      $_src=$_this.find("img").attr("src");
+    initMeasure();
+    $(".show-img-box").css({
+      "width":document.documentElement.clientWidth-400+"px",
+      "textAlign":"center",
+      "lineHeight":windowHeight()-200+"px",
+      "marginLeft":50+"px"
+    });
+    //隐藏下一个或者上一个图片id
+    var next_id=$_this.parents("li").next().find("img").attr("id"),
+      next_id_src=$_this.parents("li").next().find("img").attr("src");
+    var prev_id=$_this.parents("li").prev().find("img").attr("id"),
+      prev_id_src=$_this.parents("li").prev().find("img").attr("src");
+
+    if(_id=="photo_collect"){
+      $(".photoCollect-box").show();
+      $("#base-info-box").hide();
+    }else{
+      $(".photoCollect-box").hide();
+      $("#base-info-box").show();
+    }
+    //判断是否是暂住证
+    if(_id=="card_temp1"||_id=="card_temp2"){
+      $(".temporary-box").show();
+    }else{
+      $(".temporary-box").hide();
+    }
+    //判断是否是体检表
+    if(_id=="table_health"){
+      $(".health-box").show();
+    }else{
+      $(".health-box").hide();
+    }
+    //判断是否是最后一个
+    if($_this.parents("li").next().is(":visible")){
+      $("#hid-next-img").val(next_id);
+    }else{
+      $("#hid-next-img").val(_id);
+    }
+    //判断是否是第一个
+    if($_this.parents("li").prev().is(":visible")){
+      $("#hid-prev-img").val(prev_id);//如果上一个存在
+    }else{
+      $("#hid-prev-img").val(_id);//如果是第一个
+    }
+    $("#hid-now-img").val(_id);//当前图片id
+
+    if($_src!=""){
+      $("#view-img").show(); 
+      $("#view-img .img-list .show-img-box img").attr("src",$_src);
+      $("#photo-name").html($_this.parent().find("h4").text());
+    }else{
+      alert("无可预览的图片")
+      return false;
+    }
+  });
+
+  //缩放图片
+  var oImg=document.getElementsByClassName("orgImg")[0];
+  fnWheel(oImg,function (down,oEvent){
+
+    //设置图片盒子样式
+    $(".show-img-box").css({
+      "width":"auto",
+      "textAlign":"center",
+      "lineHeight":windowHeight()-200+"px",
+      "marginLeft":0
+    });
+
+    if (down){
+      this.style.height=this.offsetHeight*0.9+"px";
+    }else{
+      this.style.height=this.offsetHeight*1.1+"px";
+    }
+  });
+
+  //图片拖拽
+  $("#dragger1" ).draggable();
+
+  //点击隐藏大图预览
+  $(".close-view-bg").on("click",function(e){
+    e.preventDefault();
+    $("#view-img").hide();
+  });
+
+  //顺时针旋转
+  var _deg=1,count=0,_currCount;
+  $("#trans").on("click",function(e){
+    e.preventDefault();
+    _currCount=_deg*90;
+    $(".orgImg").css({
+      "transform": "rotate("+_currCount+"deg)",
+      "-ms-transform": "rotate("+_currCount+"deg)",		/* IE 9 */
+      "-webkit-transform": "rotate("+_currCount+"deg)",	/* Safari and Chrome */
+      "-o-transform": "rotate("+_currCount+"deg)",		/* Opera */
+      "-moz-transform": "rotate("+_currCount+"deg)"	
+    });
+    count=_deg*90;
+    _deg++;
+  });
+
+  //逆时针旋转
+  $("#revertrans").on("click",function(e){
+    e.preventDefault();
+    _currCount=count-90;
+
+    //设置图片盒子样式
+    $(".orgImg").css({
+      "transform": "rotate("+_currCount+"deg)",
+      "-ms-transform": "rotate("+_currCount+"deg)",		/* IE 9 */
+      "-webkit-transform": "rotate("+_currCount+"deg)",	/* Safari and Chrome */
+      "-o-transform": "rotate("+_currCount+"deg)",		/* Opera */
+      "-moz-transform": "rotate("+_currCount+"deg)"
+    });
+    count=count-90;
+    _deg--;
+  });
+
+  //原始图片大小
+  $("#orgSize").on("click",function(e){
+    e.preventDefault();
+    $(".orgImg").css({
+      "width":"auto",
+      "height":"auto",
+      "top":0,
+      "left":0,
+    });
+    _deg=1;
+    count=0;
+
+    //设置图片盒子样式
+    $(".show-img-box").css({
+      "width":document.documentElement.clientWidth-400+"px",
+      "textAlign":"center",
+      "lineHeight":windowHeight()-200+"px",
+      "marginLeft":50+"px"
+    });
+  });
+
+  //下一个
+  $("#btn-next").on("click",function(e){
+    e.preventDefault();
+    var hid_id=$("#hid-next-img").val();
+    var hid_prev_id=$("#hid-now-img").val();
+    var hid_now_id=$("#hid-now-img").val();
+    var next_img_src=$("#"+hid_id).attr("src");
+  
+    //判断是否是采集照
+    if(hid_id=="photo_collect"){
+      $(".photoCollect-box").show();
+      $("#base-info-box").hide();
+    }else{
+      $(".photoCollect-box").hide();
+      $("#base-info-box").show();
+    }
+    //判断是否是暂住证
+    if(hid_id=="card_temp1"||hid_id=="card_temp2"){
+      $(".temporary-box").show();
+    }else{
+      $(".temporary-box").hide();
+    }
+    //判断是否是体检表
+    if(hid_id=="table_health"){
+      $(".health-box").show();
+    }else{
+      $(".health-box").hide();
+    }
+
+    if(next_img_src==undefined){
+      alert("已经最后一张图片");
+      return false;
+    }else{
+      $(".orgImg").attr("src",next_img_src);
+      $("#hid-prev-img").val(hid_now_id);
+      $("#hid-now-img").val(hid_id);
+      $("#hid-next-img").val($("#"+hid_id).parents("li").next().find("img").attr("id"));
+      $("#photo-name").html($("#"+hid_id).parents("li").find("h4").text());
+    }
+    initMeasure();
+  });
+
+  //上一个
+  $("#btn-prev").on("click",function(e){
+    e.preventDefault();
+    var hid_id=$("#hid-prev-img").val();
+    var hid_next_id=$("#hid-next-img").val();
+    var hid_now_id=$("#hid-now-img").val();
+    var prev_img_src=$("#"+hid_id).attr("src");
+    //判断是否是采集照
+    if(hid_id=="photo_collect"){
+      $(".photoCollect-box").show();
+      $("#base-info-box").hide();
+    }else{
+      $(".photoCollect-box").hide();
+      $("#base-info-box").show();
+    }
+    //判断是否是暂住证
+    if(hid_id=="card_temp1"||hid_id=="card_temp2"){
+      $(".temporary-box").show();
+    }else{
+      $(".temporary-box").hide();
+    }
+    //判断是否是体检表
+    if(hid_id=="table_health"){
+      $(".health-box").show();
+    }else{
+      $(".health-box").hide();
+    }
+
+    if(prev_img_src==undefined){
+      alert("已经是第一张图片");
+      return false;
+    }else{
+      $(".orgImg").attr("src",prev_img_src);
+      $("#hid-next-img").val(hid_now_id);
+      $("#hid-now-img").val(hid_id);
+      $("#hid-prev-img").val($("#"+hid_id).parents("li").prev().find("img").attr("id"));
+      $("#photo-name").html($("#"+hid_id).parents("li").find("h4").text());
+    }
+    initMeasure();
+  });
+
+});
+//获取窗体高度
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+//鼠标滚动
+function fnWheel(obj,fncc){
+  obj.onmousewheel = fn;
+  if(obj.addEventListener){
+    obj.addEventListener('DOMMouseScroll',fn,false);
+  }
+  function fn(ev)
+  {
+    var oEvent = ev || window.event;
+    var down = true;
+
+    if(oEvent.detail){
+      down = oEvent.detail>0
+    }else{
+      down = oEvent.wheelDelta<0
+    }
+
+    if(fncc){
+      fncc.call(this,down,oEvent);
+    }
+    if(oEvent.preventDefault){
+      oEvent.preventDefault();
+    }
+    return false;
+  }
+}
+//原始尺寸
+function initMeasure(){
+  // $("#view-img .img-list").css("width","1180px");
+  $(".orgImg").css({
+    "width":"auto",
+    "height":"auto",
+    "top":0,
+    "left":0,
+    "transform": "rotate("+0+"deg)",
+    "-ms-transform": "rotate("+0+"deg)",		/* IE 9 */
+    "-webkit-transform": "rotate("+0+"deg)",	/* Safari and Chrome */
+    "-o-transform": "rotate("+0+"deg)",		/* Opera */
+    "-moz-transform": "rotate("+0+"deg)"
+  });
+
+  //设置图片盒子样式
+  $(".show-img-box").css({
+    "width":document.documentElement.clientWidth-400+"px",
+    "textAlign":"center",
+    "lineHeight":windowHeight()-200+"px",
+    "marginLeft":50+"px"
+  });
+}
+
+</script>
+<style type="text/css">
+a:hover,a:active{text-decoration:none;}
+.thumbnail{
+  border:none;
+}
+.thumbnails > li{
+  display: inline-block;
+  margin-left: 15px;
+  margin-bottom: 0;
+  float: none;
+}
+.thumbnails > li img{
+  display:inline-block;
+  width:130px;
+  height:90px;
+  border:1px solid #ddd;
+}
+.thumbnails > li h4{
+  text-align: center;
+}
+.attachment-box{
+  position: relative;
+  height: 155px;
+  overflow: hidden;
+  margin: 0 50px;
+  padding-top: 20px;
+}
+.controls .prev{
+  position:absolute;
+  top:72px;
+  left:15px;
+  font-size:44px;
+  color:#999;
+}
+.controls .next{
+  position:absolute;
+  top:72px;
+  right:22px;
+  font-size:44px;
+  color:#999;
+}
+.controls .prev:hover,
+.controls .next:hover{
+  color:#08c;
+}
+.form-horizontal{
+  font-size: 14px;
+}
+.form-horizontal .control-group{
+  margin-bottom: 5px;
+}
+.form-horizontal .control-label{
+  font-size: 14px;
+  font-family: "宋体";
+  width: 80px;
+}
+.form-horizontal .controls{
+  margin-left: 85px;
+  padding-top: 3px;
+}
+.control-group .label-title{
+  font-size: 22px;
+  font-family: "宋体";
+}
+#newstiveker li{
+  line-height: 40px;
+  border-bottom:1px solid #ddd;
+  padding:0 40px !important;
+}
+#newstiveker li:hover{
+  cursor:pointer;
+  background-color:#e6e6e6;
+}
+#newstiveker li .text{
+  padding-left:20px;
+}
+#newstiveker li a{
+  display: inline-block;
+  width:100px;
+}
+.right-box{
+  border:1px solid #d4d4d4;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+  height:288px;
+}
+.right-box h4{
+  margin:0;
+  border-bottom:1px solid #d4d4d4;
+  padding:10px 40px;
+  font-size:14px;
+}
+.img-list{
+  position: absolute;
+  left:0;right:0;bottom:42px;
+  top: 50px;
+  z-index: 6;
+  /*text-align: center;*/
+  vertical-align: middle;
+  overflow: hidden;
+  width:1180px;
+  margin:0 auto;
+  background-color: #fff;
+}
+.show-baseinifo-box .help-inline{color:#fff;}
+.view-img img{text-align: center;}
+.img-list img:hover{cursor: move;}
+.view-img{position: fixed;width: 100%;display: block;top: 0;left:0;right:0;bottom:0;z-index: 2;}
+.view-bg{position:fixed;top: 0;left:0;bottom:0;right:0;background-color: #000;opacity:.7;z-index: 2;}
+.trans-box{position: absolute;left:0;right:0;bottom:0;text-align: center;background-color:#f0f0f0;border-top:1px solid #ddd;height: 42px;z-index: 11;margin-top:55px;overflow: hidden;}
+.trans-box a{display:inline-block;font-size: 30px;vertical-align: middle;line-height: 42px;padding:0 15px;font-family: "宋体";}
+.trans-box a:hover,
+.trans-box a:active{text-decoration: none;background-color:#ddd;}
+.trans-box a:visited,.trans-box a:link{text-decoration: none;}
+.stutt{width:150px;font-size:14px;margin-left:20px;float:left;display:block;}
+.stuinfo{width:250px;color:#0088cc;font-weight:bold;margin-left:20px;float:left;display:inline;}
+.stuinfo a{width:auto;padding:0 10px;float:left;display:inline;}
+.control-group{margin-bottom:0px;}
+.right-pos-box{position: absolute;right:50px;bottom:0;}
+.right-pos-box span{font-size:18px;margin-left:30px;line-height: 42px;font-family: "宋体";font-weight: bold;}
+.show-baseinifo-box{padding-top:50px;height:100%;border-left:2px solid #ddd;width:300px;position:absolute;top:0;right:0;background-color:#000;color:#fff;z-index: 100;}
+.control-label.span4.text-right{font-size:12px;}
+</style>
+</head>
+<body unselectable="on" onselectstart="return false;" style="-moz-user-select:none;">
+<%@include file="../../common/nav.jsp"%>
+<div class="container">
+<div class="row-fluid">
+  <div class="span12" id="waitAudit" style="height:40px;line-height:40px;background-color:#eee;border:1px solid #ccc;border-radius:5px;cursor:pointer;">
+    <span class="stutt">当前待审核流水号：</span>
+    <span class="stuinfo"></span>
+    <span style="float:right;margin-right:50px;">
+    待审核学员有【<b id="b_auditCount" style="color:blue"></b>】			
+    人
+    </span>
+  </div>
+  <div class="control-group span12" style="margin:20px 0 0 0;">
+    <label for="" class="control-label label-title">学员档案信息</label>
+    <hr style="border-color:#ccc;margin-top:10px;">
+  </div>
+  <div class="span10" style="margin-left:0px">
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">证件类型：</label>
+        <div class="controls span7">
+          <span id="spanCardType" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">证件号码：</label>
+        <div class="controls span7">
+          <span id="spanCard" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">姓名：</label>
+        <div class="controls span7">
+          <span id="spanName" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">性别：</label>
+        <div class="controls span7">
+          <span id="spanSex" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">出生日期：</label>
+        <div class="controls span7">
+          <span id="spanBirthday" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">国籍：</label>
+        <div class="controls span7">
+          <span id="spanCountry" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3" style="display:none;">
+        <label class="control-label span4 text-right">民族：</label>
+        <div class="controls span7">
+          <span id="spanNation" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">申请类别：</label>
+        <div class="controls span7">
+          <span id="spanExamType" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">申请车型：</label>
+        <div class="controls span7">
+          <span id="spanLincece" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span6">
+        <label class="control-label span2 text-right">籍贯：</label>
+        <div class="controls span7" style="margin-left:8px">
+          <span id="spanIdAddress" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3" >
+        <label class="control-label span4 text-right">所属辖区：</label>
+        <div class="controls span7">
+          <span id="spanArea" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">驾校名称：</label>
+        <div class="controls span7">
+          <span id="spanSchoolName" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span6">
+        <label class="control-label span2 text-right">现居地址：</label>
+        <div class="controls span9" style="margin-left:8px;">
+          <span id="spanAddress" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3" style="margin-left:7px;">
+        <label class="control-label span5 text-right">本地/异地：</label>
+        <div class="controls span7">
+          <span id="spanLocal" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span5 text-right">暂住证：</label>
+        <div class="controls span6">
+          <span id="spanTemporary" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">邮政编码：</label>
+        <div class="controls span7">
+          <span id="spanZipCode" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3" style="width:25%">
+        <label class="control-label span4 text-right">联系电话：</label>
+        <div class="controls span8">
+          <span id="spanTel" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3" style="margin-left:6px;">
+        <label class="control-label span4 text-right">电子邮箱：</label>
+        <div class="controls span7">
+          <span id="spanEmail" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">上传时间：</label>
+        <div class="controls span8">
+          <span id="spanEntryDate" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span2">
+    <div class="control-group" style="height: 130px; width: 115px;border:1px solid #ddd;">
+      <img id="photo_path" alt="" style="height: 130px; width: 115px;margin-bottom:15px;"
+      src="<c:url value='/img/noPhoto.jpg'/>">
+    </div>
+  </div>
+  <div class="control-group span12" style="margin:0;">
+    <hr style="border-color:#ccc;margin-top:10px;">
+  </div>
+  <div class="span12" style="margin-left:0px">
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">身高：</label>
+        <div class="controls span7">
+          <span id="spanHeight" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">体检日期：</label>
+        <div class="controls span7">
+          <span id="spanCheckDate" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span6">
+        <label class="control-label span2 text-right">体检医院：</label>
+        <div class="controls span9">
+          <span id="spanHospital" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">辨色力：</label>
+        <div class="controls span7">
+          <span id="spanColor" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">左视力：</label>
+        <div class="controls span7">
+          <span id="spanLeftEye" class="help-inline"></span>
+        </div>
+      </div>
+      
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">上肢：</label>
+        <div class="controls span7">
+          <span id="spanUpperLimb" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">左下肢：</label>
+        <div class="controls span7">
+          <span id="spanLeftDownLimb" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">听力：</label>
+        <div class="controls span7">
+          <span id="spanListen" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">右视力：</label>
+        <div class="controls span7">
+          <span id="spanRightEye" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">躯干颈部：</label>
+        <div class="controls span7">
+          <span id="spanTrunkNeck" class="help-inline"></span>
+        </div>
+      </div>
+      <div class="control-group span3">
+        <label class="control-label span4 text-right">右下肢：</label>
+        <div class="controls span7">
+          <span id="spanRightDownLimb" class="help-inline"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="row-fluid">
+    <div class="control-group span12 margintop10">
+      <div class="controls" style="border:1px solid #cccccc;position:relative;width: 1200px;border-radius: 5px;">
+        <a href="javascript:;" class="prev"><span class="icon-prev">&lt;</span></a>
+        <a href="javascript:;" class="next"><span class="icon-prev">&gt;</span></a>
+        <div class="attachment-box banner-list">
+          <ul class="thumbnails banner-wrap" style="white-space:nowrap;position:absolute;">
+                  <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="card_face" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>身份证正面</h4>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="card_behind" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>身份证反面</h4>
+                      </div>
+                    </div>
+                  </li>
+                   <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="table_health" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>体检表</h4>
+                      </div>
+                    </div>
+                  </li>
+                   <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="photo_collect" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>采集照</h4>
+                      </div>
+                    </div>
+                  </li>		
+                   <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="table_apply" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>申请表</h4>
+                      </div>
+                    </div>
+                  </li>	               
+                    <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="card_temp1" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>暂住证1</h4>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="card_temp2" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>暂住证2</h4>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="work_card" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>工作证明</h4>
+                      </div>
+                    </div>
+                  </li> 
+                  <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="licence_card" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>驾驶证</h4>
+                      </div>
+                    </div>
+                  </li>
+                   <li class="banner">
+                    <div class="thumbnail">
+                      <a href="javascript:;" title="点击预览大图"><img id="card_other" alt="" src=""></a>
+                      <div class="caption">
+                        <h4>其他</h4>
+                      </div>
+                    </div>
+                  </li>
+              </ul> 
+        </div>
+        </div>
+    </div>
+  </div>
+   <div class="view-img" id="view-img" style="display:none;">
+    <div class="img-list span12">
+      <input type="hidden" name="" id="hid-next-img">
+      <input type="hidden" name="" id="hid-prev-img">
+      <input type="hidden" name="" id="hid-now-img">
+      
+      <div class="show-baseinifo-box pull-right">
+        <div class="photoCollect-box" style="display:none;margin-left:20px;">
+          <div class="control-group " style="height: 130px; width: 115px;border:1px solid #ddd;">
+            <img id="s_photo_path" alt="" style="height: 130px; width: 115px;margin-bottom:15px;"
+            src="<c:url value='/img/noPhoto.jpg'/>">
+          </div>
+        </div>
+        <div class="row-fluid" id="base-info-box">
+          <div class="control-group span12">
+            <label class="control-label span4 text-right" style="width:104px;">姓名：</label>
+            <div class="controls span7">
+              <span id="s_spanName" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">证件类型：</label>
+            <div class="controls span7">
+              <span id="s_spanCardType" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">证件号码：</label>
+            <div class="controls span7">
+              <span id="s_spanCard" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">申请车型：</label>
+            <div class="controls span7">
+              <span id="s_spanLincece" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">申请类别：</label>
+            <div class="controls span7">
+              <span id="s_spanExamType" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">驾校名称：</label>
+            <div class="controls span7">
+              <span id="s_spanSchoolName" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">本地/异地：</label>
+            <div class="controls span7">
+              <span id="s_spanLocal" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group temporary-box span12" style="display:none;">
+            <label class="control-label span4 text-right">暂住证号：</label>
+            <div class="controls span7">
+              <span id="s_spanTemporary" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">联系电话：</label>
+            <div class="controls span8">
+              <span id="s_spanTel" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">上传时间：</label>
+            <div class="controls span7">
+              <span id="s_spanEntryDate" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">籍贯：</label>
+            <div class="controls span7" >
+              <span id="s_spanIdAddress" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group span12">
+            <label class="control-label span4 text-right">现居地址：</label>
+            <div class="controls span7">
+              <span id="s_spanAddress" class="help-inline"></span>
+            </div>
+          </div>
+          <div class="health-box" style="display;none;">
+            <div class="control-group span12">
+              <label class="control-label span4 text-right" style="width:104px;">身高：</label>
+              <div class="controls span7">
+                <span id="s_spanHeight" class="help-inline"></span>
+              </div>
+            </div>
+            <div class="control-group span12">
+              <label class="control-label span4 text-right">体检日期：</label>
+              <div class="controls span7">
+                <span id="s_spanCheckDate" class="help-inline"></span>
+              </div>
+            </div>
+            <div class="control-group span12">
+              <label class="control-label span4 text-right">体检医院：</label>
+              <div class="controls span7">
+                <span id="s_spanHospital" class="help-inline"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="show-img-box">
+        <img src="" alt="" class="orgImg" draggable="true" id="dragger1" class="ui-widget-content">
+      </div>
+    </div>
+    <div class="trans-box">
+      <a href="javascript:;" id="orgSize" style="font-size:18px;">原始尺寸</a>
+      <a href="javascript:;" id="btn-prev" title="上一个"><img style="width:25px;vertical-align:top;padding-top:9px;" alt="逆时针" src="../img/tra-right.png" /></a>
+      <a href="javascript:;" id="btn-next" title="下一个"><img style="width:25px;vertical-align:top;padding-top:9px;" alt="逆时针" src="../img/tra-left.png" /></a>
+      <a href="javascript:;" id="revertrans" title="逆时针"><img style="width:23px;vertical-align:top;padding-top:8px;" alt="逆时针" src="../img/circle-left.png" /></a>
+      <a href="javascript:;" id="trans" title="顺时针"><img style="width:23px;vertical-align:top;padding-top:8px;" alt="顺时针" src="../img/circle-right.png" /></a>
+      <a href="javascript:;" class="close-view-bg" style="color:#f00" title="关闭">×</a>
+      <div class="right-pos-box">
+        <span id="photo-name" ></span>
+        <!-- <span class="zzz-box" style="display:none;">暂住证号：<span id="zzz-text" style="margin-left:0;color:#08c;"></span></span> -->
+      </div>
+    </div>
+    <div class="view-bg"></div>
+  </div>
+  <!-- Modal -->
+  <div id="mySaveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" style="width:450px;">			
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="mySaveLabel">退办意见</h3>
+    </div>
+    <div class="modal-body" style="max-height: 200px;padding-left: 50px;">
+        <div class="row">
+          <div class="row-fluid">
+            <textarea id="suggestion" name="suggestion" style="width:400px;height:60px;" maxlength="100"></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="row-fluid">
+            <label class="span6 text-right"></label>
+              <button id="btnSave" name="btnSave" type="button" class="btn btn-primary">确认</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+<div class="row-fluid" style="margin-top:15px;">
+  <div class="pull-right span3">
+    <button id="btn_pass" type="button" class="btn btn-success span4">审核通过</button>	
+    <button id="btn_unpass" type="button" class="btn btn-danger span3">退办</button>
+  </div>
+</div>
+</div>
+</div>
+<input type="hidden" id="hidSerialNumber" name="hidSerialNumber" value=""/>
+<script type="text/javascript">
+//页面加载完成后初始化
+$(function() {
+
+btnDisEnabled();//按钮 默认 不可用	
+//clearInfo();//清空学员基本信息
+audit();
+//搜索
+$("#search").click(function(){
+  $('#datagrid').datagrid('load',{name:$("#s_name").val(),identityCard:$("#s_card").val()});
+  }); 
+
+//回车事件
+$('#s_name,#s_card').keydown(function(e){
+  if(e.keyCode==13){
+    $('#datagrid').datagrid('load',{name:$("#s_name").val(),identityCard:$("#s_card").val()});
+  }
+});
+
+//确认审核通过
+$("#btn_pass").click(function(){
+  if($("#hidSerialNumber").val()==""){
+    alert("请选择要审核的学员!");
+    return;
+  }
+  if(confirm("您确认学员 "+$("#spanName").html()+"["+$("#spanCard").html()+"]"+" 通过审核吗？")) {
+    btnDisEnabled();//按钮不可用
+    //确认缴费
+          $.post("../examinee/pass.shtml", {serialNumber:$("#hidSerialNumber").val()}, function (data) {
+              if (data.flag == "1") {
+                alert("审核操作成功!");
+                //去掉记录行
+                audit();
+                //清空学员信息
+                clearInfo();
+              }
+              else {
+                  alert("操作失败，原因：" + data.msg);
+                  audit();//按钮可用
+              }
+          });
+  }
+  });
+
+//审核退办
+$("#btn_unpass").click(function(){
+  if(confirm("您确认要 退办 学员 "+$("#spanName").html()+"["+$("#spanCard").html()+"]"+" 的报名吗？")) {			
+    $("#mySaveModal").modal('show');
+    $("#suggestion").val("");
+  }
+  });
+
+//确定审核退办
+$("#btnSave").click(function(){
+  var serialNumber = $("#hidSerialNumber").val();
+  if(typeof(serialNumber)=="undefined"||serialNumber==null||$.trim(serialNumber).length==0){
+    alert("请选择要审核的学员!");
+    return;
+  }
+      btnDisEnabled();//按钮不可用
+      var suggestion="";
+      suggestion=$("#suggestion").val();
+      if(typeof(suggestion)=="undefined"||suggestion==null||$.trim(suggestion).length==0){
+        alert("请输入退办意见！");
+        return;
+      }
+  //驳回审核
+      $.post("../examinee/unpass.shtml", {serialNumber:$("#hidSerialNumber").val(),cgMemo:suggestion}, function (data) {
+          if (data.flag == "1") {
+            alert("操作成功!");
+            $("#mySaveModal").modal('hide');
+            audit();
+            //清空学员信息
+            clearInfo();
+          }
+          else {
+              alert("操作失败，原因：" + data.msg);
+              audit();
+          }
+      });
+  });
+
+//当前日期
+var nowdate = new Date();
+$("#spandate").html(nowdate.format("yyyy-MM-dd")+",");
+});
+
+//加载学员基本信息
+function audit(){
+$('#btn_charge').attr('disabled',"disabled");//将按钮不可用
+  //清空信息 显示
+  $(".help-inline").each(function(){
+        $(this).html("");
+  });	
+  $("#photo_path").attr("src","");
+  //读取学员信息
+  $(".stuinfo").html("正在提取待审核人员，请稍后 ... ... ");
+  $("#b_auditCount").html("");
+  
+  //提取审核个数
+  $.post("../examineeaudit/getWaitAuditCount.shtml", null , function (data) {	
+    if(data['waitAuditCount']!=null){				
+      $("#b_auditCount").html(data['waitAuditCount']);
+    }else{
+      $("#b_auditCount").html("0");
+    }
+   });	
+  
+   $.post("../examineeaudit/auditAllot.shtml", null , function (data) {			
+     //alternateField1 流水号 
+     if(data['em']!=null){
+      $(".stuinfo").html(data['em'].alternateField1);			 	
+       $("#hidSerialNumber").val(data['em'].alternateField1);
+      $("#spanName,#s_spanName").html(data['em'].name);//姓名
+      //证件类型(A：居民身份证 C：军官证 D：士兵证 E：军官离退休证 F：境外人员身份证明G：外交人员身份证明)
+      var cardTypeName = {'A':'居民身份证', 'C':'军官证', 'D':'士兵证','E':'军官离退休证', 'F':'境外人员身份证明','G':'外交人员身份证明'};
+      $("#spanCardType,#s_spanCardType").html(cardTypeName[data['em'].identityType]);
+      if(data['em'].oldLicenceCode!=""){
+        $("#spanLincece,#s_spanLincece").html(data['em'].licenceCode+"(原车型：<span style='color:#f00'>"+data['em'].oldLicenceCode+"</span>"+")");
+      }else{
+        $("#spanLincece,#s_spanLincece").html(data['em'].licenceCode);
+      }
+      //A本地/B外地
+      var localArray = {'A':'本地', 'B':'异地'};
+      $("#spanLocal,#s_spanLocal").html(localArray[data['em'].isLocal]);
+
+      //add by fangdx
+      $("#spanBirthday").html(data['em'].birthday);
+      $("#spanEmail").html(data['em'].email);
+      $("#spanSchoolName,#s_spanSchoolName").html(data['em'].schoolName);
+      $("#spanZipCode").html(data['em'].post);
+      $("#spanArea").html(data['em'].areaName);
+      //$("#spanTel").html(data['em'].tel);
+      $("#spanEntryDate,#s_spanEntryDate").html(data['em'].entryDate);
+      $("#spanTel,#s_spanTel").html(data['em'].tel+"<span style='color:#f00'>("+data['em'].phoneCount+"人已用)</span>");
+      $("#spanCard,#s_spanCard").html(data['em'].identityCard);
+      $("#spanSex").html(data['em'].sex);
+      $("#spanCountry").html(data['em'].country);
+      $("#spanNation").html(data['em'].nation);
+      $("#spanIdAddress,#s_spanIdAddress").html(data['em'].idAddress);
+      var aArray = ["","初次申领","增驾车型","持军官驾驶证","持境外驾驶证"];//定义本地/异地数组
+      $("#spanExamType,#s_spanExamType").html(aArray[data['em'].examType]);
+      $("#spanAddress,#s_spanAddress").html(data['em'].address);
+      $("#spanTemporary,#s_spanTemporary").html(data['em'].temporary);
+
+      //add by fangdx use by photo
+      $("#zzz-text").html(data['em'].temporary);
+
+      $("#photo_path,#s_photo_path").attr("src",app.imgPath +data['em'].photo);
+      $("#card_face,#hid_card_face").attr("src",app.imgPath + data['em'].cardFace);
+      $("#card_behind,#hid_card_behind").attr("src",app.imgPath + data['em'].cardBehind);
+      $("#table_apply,#hid_table_apply").attr("src",app.imgPath +  data['em'].tableApply);
+      $("#table_health,#hid_table_health").attr("src",app.imgPath +  data['em'].tableHealth);
+      $("#photo_collect,#hid_photo_collect").attr("src",app.imgPath + data['em'].photoCollect);
+      $("#card_temp1,#hid_card_temp1").attr("src",app.imgPath + data['em'].cardTemp);
+      $("#card_other,#hid_card_other").attr("src",app.imgPath + data['em'].cardOther);
+      //暂住证，工作证，驾驶证
+      $("#card_temp2,#hid_card_temp2").attr("src",app.imgPath + data['em'].cardTemp2);
+      $("#work_card,#hid_work_card").attr("src",app.imgPath + data['em'].workCard);
+      $("#licence_card,#hid_licence_card").attr("src",app.imgPath + data['em'].licenceCard);
+      
+      //体检信息
+      if(data['eh']!=null){
+        $("#spanHeight,#s_spanHeight").html(data['eh'].height+"（cm）");
+        $("#spanCheckDate,#s_spanCheckDate").html(data['eh'].checkDate);
+        $("#spanHospital,#s_spanHospital").html(data['eh'].hospital);
+        $("#spanLeftEye").html(data['eh'].leftEye+".0");
+        $("#spanRightEye").html(data['eh'].rightEye+".0");
+        $("#spanColor").html(data['eh'].color==1?"正常":"异常");
+        $("#spanListen").html(data['eh'].listen==1?"正常":"异常");
+        $("#spanUpperLimb").html(data['eh'].upperLimb==1?"正常":"异常");
+        $("#spanTrunkNeck").html(data['eh'].trunkNeck==1?"正常":"异常");
+        $("#spanLeftDownLimb").html(data['eh'].leftDownLimb==1?"正常":"异常");
+        $("#spanRightDownLimb").html(data['eh'].rightDownLimb==1?"正常":"异常");
+      }	
+      
+      //按钮可用
+      btnEnable();
+     }else{
+      $(".stuinfo").html("未检索到待审核人员信息！");
+     }
+   });
+}
+
+//按钮可用
+function btnEnable(){
+$("#btn_pass").removeAttr("disabled");//将按钮可用
+$("#btn_unpass").removeAttr("disabled");//将按钮可用
+$("#btn_tempsave").removeAttr("disabled");//将按钮可用
+}
+
+//按钮不可用
+function btnDisEnabled(){
+$('#btn_pass').attr('disabled',"disabled");//将按钮不可用
+$('#btn_unpass').attr('disabled',"disabled");//将按钮不可用
+$('#btn_tempsave').attr('disabled',"disabled");//将按钮不可用
+}
+
+//清空学员基本信息
+function clearInfo(){
+$("#hidSerialNumber").val("");
+$(".help-inline").each(function(){
+   $(this).html("");
+});
+$("#card_face").attr("src","");
+$("#card_behind").attr("src","");
+$("#table_apply").attr("src","");
+$("#table_health").attr("src","");
+$("#photo_collect").attr("src","");
+$("#card_temp").attr("src","");
+$("#card_other").attr("src","");
+$(".thumbnails li a img").attr("src","");
+}
+
+</script>
+</body>
+</body>

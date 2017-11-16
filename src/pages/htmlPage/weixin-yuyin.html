@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>语音</title>
+</head>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	//开始录音
+	function _startRecord(){
+	    $("#btnVoice").on("click",function(){
+	    	$(this).attr("disabled","disabled");
+	    	//开始录音
+		    wx.startRecord({
+		        cancel: function () {
+			        alert('用户拒绝授权录音');
+			    },
+			    fail:function(res){
+			      	alert("录音失败");
+			    }
+		    });
+		    //2s后自动停止录音并解析成文字
+		    setTimeout(function(){
+		    	_stopRecord();
+		    },2000);
+	    });
+	}
+
+	//停止录音
+	function _stopRecord(){
+		wx.stopRecord({
+		    success: function (res) {
+		        $("#btnVoice").removeAttr("disabled");
+		        wx.translateVoice({
+		            localId: res.localId, // 需要识别的音频的本地Id，由录音相关接口获得
+		            // isShowProgressTips: 1, // 默认为1，显示进度提示
+		            success: function (res) {
+			           	if(res.translateResult!=""){
+			           		$("#voice-text").val(res.translateResult);
+			           	}
+		            },
+		            fail:function(res){
+		           		alert(JSON.stringify(res));
+		            }
+		        });
+		    },
+		    fail: function (res) {
+		        alert(JSON.stringify(res));
+		    }
+	    });
+	}
+
+	//调用微信JS api 支付
+	function jsApiCall(){
+		$.get("***.htm",function(data,status){
+			var timestamp = data.timestamp;//时间戳
+			var nonceStr = data.nonceStr;//随机串
+			var signature = data.signature;//签名
+			var appid=data.appid;
+			console.log(data)
+			wx.config({
+		        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		        appId: appid, // 必填，公众号的唯一标识
+		        timestamp: timestamp, // 必填，生成签名的时间戳
+		        nonceStr: nonceStr, // 必填，生成签名的随机串
+		        signature: signature,// 必填，签名，见附录1
+		        jsApiList: ['startRecord','stopRecord','translateVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		    });
+			wx.ready(function(){
+			 	//扫描二维码
+				_startRecord();
+			});
+	    });
+	}
+	 	 
+	$(function(){
+		jsApiCall();
+	})
+
+</script>
+<body>
+	<div>
+		<input type="text" id="voice-text" style="width:80%;height:26px;line-height:26px;">
+		<br>
+		<button id="btnVoice">开始录音</button>
+	</div>
+</body>
+</html>

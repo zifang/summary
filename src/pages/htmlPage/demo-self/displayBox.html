@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>displayBox</title>
+	<style>
+		*{margin:0;padding:0;}
+		body{
+			background-color: #fafafa;
+		}
+		.wrapper{
+			margin:50px;
+		}
+		.inner-wrapper{
+			display:-webkit-flex;
+			display:flex;
+			-webkit-align-items:baseline;
+			align-items:baseline;
+			/*flex-direction:column; */ /*默认row    row row-reverse column column-reverse inherit initial*/
+			/*justify-content:flex-start;*/ /*center flex-start flex-end space-around space-between*/
+			/*align-itmes:;*/ /*baseline center flex-start flex-end stretch(默认值)*/
+			/*flex-wrap:nowrap wrap wrap-reverse*/
+			/*order:盒子索引 如：order:-1放到第一个*/
+		}
+		.item{
+			width:300px;
+			padding:10px;
+			margin: 10px;
+			border:1px solid #dadada;
+			/*align-self:自己的对齐方式  类似align-items*/
+			/*flex：定义盒子如何分配空间*/
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="inner-wrapper">
+			<div class="item">
+				<p> 1、:before 伪元素在元素之前添加内容
+					这个伪元素允许创作人员在元素内容的最前面插入生成内容。默认地，这个伪元素是行内元素，不过可以使用属性 display 改变这一点。
+
+					2、:after 伪元素在元素之后添加内容
+					这个伪元素允许创作人员在元素内容的最后面插入生成内容。默认地，这个伪元素是行内元素，不过可以使用属性 display 改变这一点。
+					3、:before 和 :after将在内容元素的前后插入额外的元素；:before将会在内容之前“添加”一个元素而:after将会在内容后“添加”一个元素。在它们之中添加内容我们可以使用content属性。
+					 
+					4、无论使用单引号还是双引号浏览器都能识别，但是IE8只支持单冒号格式，因而为兼容还是使用单冒号。</p>
+			</div>
+			<div class="item">
+				<p>2、:after 伪元素在元素之后添加内容
+					这个伪元素允许创作人员在元素内容的最后面插入生成内容。默认地，这个伪元素是行内元素，不过可以使用属性 display 改变这一点。</p>
+			</div>
+			<div class="item">
+				<p>3、:before 和 :after将在内容元素的前后插入额外的元素；:before将会在内容之前“添加”一个元素而:after将会在内容后“添加”一个元素。在它们之中添加内容我们可以使用content属性。</p>
+			</div>
+			<div class="item"><p>click me!</p></div>
+			<div class="item">item1</div>
+			<div class="item">item2</div>
+			<div class="item">item3</div>
+		</div>
+	</div>
+</body>
+</html>

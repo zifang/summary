@@ -1,0 +1,233 @@
+<!-- 使用easeUI遇到的问题收集 -->
+
+<!-- 直接验证 -->
+<label for="s_card">证件号码</label>
+<input type="text" placeholder="证件号码" id="s_card" name="s_card" class="input-medium isIdCardNo" onkeyup="this.value=this.value.replace(/[^0-9xX]/g,'')" maxlength="20">
+
+<!--触发一行的事件 -->
+<table id="datagrid" class="easyui-datagrid" style="width:600px;min-height: 400px" data-options="collapsible:true,url:'<c:url value="/examinee/getWaitCardStu.shtml"/>',toolbar:'#toolbar',onClickRow:function(rowIndex,rowData){charge(rowData);}">
+	<thead>
+		...
+	</thead>
+</table>
+<script type="text/javascript">
+	function charge(rowData){
+		//rowData里面存储的是一行的数据
+	}
+</script>
+<!-- 状态转换 -->
+<th data-options="field:'certifiStatus',width:120,align:'center',formatter : function(value, rowData, rowIndex) {
+		if (value == '0') {
+			return '未领取';
+		} else if (value == '1') {
+			return '已领取';
+		}
+}">领证状态</th>
+<!-- 操作的写法 -->
+<th data-options="field:'id',width:150,align:'center',
+formatter : function(value, rowData, rowIndex) {
+	var e = '<input type=\'button\' class=\'btn btn-link\' value=\'编辑\' onclick=edit(\''+value+'\')//>';
+	var d = '<input type=\'button\' class=\'btn btn-link\' value=\'删除\' onclick=del(\''+ value +'\')//>';
+	var f = '<input type=\'button\' class=\'btn btn-link\' value=\'上线\' onclick=upline(\''+value+'\')//>';
+	var g = '<input type=\'button\' class=\'btn btn-link\' value=\'下线\' onclick=downline(\''+value+'\')//>';
+	if(rowData.online==0){
+		return e+d+f;
+	}else{
+		return e+d+g;
+	}
+}">操 作</th>
+ <th data-options="field:'status',width:120,align:'center',
+	formatter : function(value, rowData, rowIndex) {
+				if (value == '1') {
+					return '允许上线';
+				} else if (value == '2') {
+					return '<font color=\'red\'>禁止上线</font>';
+				}
+				return '';
+	}">上线状态</th>		
+<!-- 日期插件的初始化 -->
+<script type="text/javascript">
+	//开始日期初始化
+	$("#datestart").datepicker({
+        SetSelectedDate:new Date(),
+        numberOfMonths: 1,
+        maxDate:GetDateStr(0),
+        dateFormat: "yy-mm-dd",
+        onClose: function (selectedDate) {
+            if (selectedDate){
+            	$("#dateend").datepicker("option", "minDate", selectedDate);
+            }
+        }
+    });
+	//结束日期初始化
+    $("#dateend").datepicker({
+        numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
+        onClose: function (selectedDate) {
+            if (selectedDate){
+                $("#datestart").datepicker("option", "maxDate", selectedDate);
+            }                   
+        }
+    });
+</script>
+	<label for="s_identCard">身份证号：</label><input type="text" placeholder="身份证号" id="s_identCard" class="input-medium isIdCardNo" onkeyup="this.value=this.value.replace(/[^0-9xX]/g,'')" maxlength="20">
+
+<!-- 带有传参的调用 -->
+<script type="text/javascript">
+	//注意：div里面的class="easyui-datagrid" 否则，页面会请求两次。
+
+	//获取表格统计数据
+	function getTableDate(_schoolId,_dateType,startDate,endDate){
+		$('#datagrid').datagrid({
+			method:'get',
+			url:"<c:url value='/report/finance/"+_dateType+"/grid/"+startDate+"/"+endDate+".shtml'/>",
+			pagination:true,
+			pageSize:10,
+			pageList:[10],
+			queryParams:{schoolId:_schoolId}
+		});
+	}
+</script>
+<!-- 对时间段的限制 -->
+<script type="text/javascript">
+	 //设置默认时间段,限制时间段不能超过100天
+		var fullDate=new Date();
+		var month=fullDate.getMonth()+1;
+		if(month<10){
+			month="0"+month;
+		}
+		var nowDate=fullDate.getFullYear()+"-"+month+"-01";
+		var yestardayDate=GetDateStr(-1);
+		$("#s_startDate,#startDate").val(nowDate);
+		$("#s_endDate,#endDate").val(yestardayDate);
+		$("#s_endDate").change(function(){
+			var stime = $('#s_startDate').val(),
+				etime = $('#s_endDate').val();
+			if(stime!=null&&stime!=""&&etime!="" && etime!=null){
+				var days = getDays(stime,etime);
+				if(days>100){
+					alert("两个时间段不能超过100天，请重新选择时间");
+					$("#s_endDate").val("");
+				}
+			}
+		});
+		$("#endDate").change(function(){
+			var stime=$("#startDate").val(),
+				etime=$("#endDate").val();
+			if(stime!=null&&stime!=""&&etime!="" && etime!=null){
+				var days = getDays(stime,etime);
+				if(days>100){
+					alert("两个时间段不能超过100天，请重新选择时间");
+					$("#endDate").val("");
+				}
+			}
+		});
+		//限制截止月份不能大于起始月份
+		$("#s_monthstar").change(function(){
+	        var stime = $("#s_monthstar").val();
+			var etime = $("#s_monthend").val();
+			if(stime!=null&&stime!=""&&etime!="" && etime!=null){
+				var year=etime.split("-")[0]-stime.split("-")[0];
+				var month = etime.split("-")[1]-stime.split("-")[1];
+				if(year<0||year==0){
+					var sum_month=year*12+month;
+					if(sum_month<0){
+						alert("起始月份不能大于截止月份，请重新选择");
+						$("#s_monthstar").val("");
+					}
+				}else if(year>0){
+					var sum_month=year*12+month;
+					if(sum_month>12){
+						alert("两个月份区间不能超过一年，请重新选择");
+						$("#s_monthstar").val("");
+					}
+				}
+			}
+		});
+		$("#s_monthend").change(function(){
+	        var stime = $("#s_monthstar").val();
+			var etime = $("#s_monthend").val();
+			if(stime==null||stime==""){
+	       		alert("请选择起始月份");
+	       		$("#s_monthend").val("");
+	      	}
+			if(stime!=null&&stime!=""&&etime!="" && etime!=null){
+				var year=etime.split("-")[0]-stime.split("-")[0];
+				var month = etime.split("-")[1]-stime.split("-")[1];
+				if(year<0||year==0){
+					var sum_month=year*12+month;
+					if(sum_month<0){
+						alert("起始月份不能大于截止月份，请重新选择");
+						$("#s_monthend").val("");
+					}
+				}else if(year>0){
+					var sum_month=year*12+month;
+					if(sum_month>12){
+						alert("两个月份区间不能超过一年，请重新选择");
+						$("#s_monthend").val("");
+					}
+				}
+			}
+	    });
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		//编辑窗体提交验证
+		editValidataSubmit("editForm","mySaveModal","datagrid");
+		//搜索
+		$("#search").click(function(){
+			searchVannver();
+	    });
+		
+		//添加
+		$("#btnAdd").click(function(){
+			clearEditForm("editForm");
+			$('#mySaveModal').modal('show');
+	    });
+		
+		//批量删除
+		$("#btnPlDel").click({url:"../vehicleannualverify/dellist.shtml",datagrid:"datagrid"},deleteBatchDo);
+
+	});	
+	//根据驾校改变 车牌号
+	function changePlate(){
+		showCurSchPlateCode("s_plate",$('#s_schoolId').find('option:selected').val());
+	}
+	//查询数据
+	function searchVannver(){
+		var postData ={
+				schIds:$('#s_schoolId').find('option:selected').attr('schids'),
+				vehicleId:$("#s_plate").val(),
+				'verifyPeriod.startTime':$('#startTime').val(),
+				'verifyPeriod.endTime':$('#endTime').val()  
+		};
+		getVannver(postData);
+	}
+	//根据条件提取数据
+	function getVannver(postData){
+		$('#datagrid').datagrid({
+			collapsible:true,
+			url:'../vehicleannualverify/page.shtml',
+			pagination:true,
+			pageSize:15,
+			pageList:[15],
+			toolbar:'#toolbar',
+			queryParams:postData
+		});
+	}
+	//删除
+	function del(delId){	
+		deleteDo("../vehicleannualverify/del.shtml",delId,"datagrid");
+	}
+	//编辑
+	function edit(editId){		
+		editShow("editForm","mySaveModal","../vehicleannualverify/one.shtml",editId);
+	}
+</script>
+
+<script type="text/javascript">
+	//获取驾校参数
+	var vpschoolId = GetQueryString("schoolId");
+	$("#hid_schoolId").val(vpschoolId);
+</script>

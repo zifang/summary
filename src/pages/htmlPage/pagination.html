@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pagination</title>
+</head>
+<body>
+	<ul id="data-box">
+	</ul>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		//滚动条加载评论数据
+		var page = 0;
+		var loading_page = false;
+		var stop_loading = false;
+		$(function(){
+			var _dynamicId = getQueryString("dynamicId");	//获取菜单id
+			var _dinnerId = getQueryString("dinnerId");
+			var _dinnerInfoId = getQueryString("dinnerInfoId");
+			var _token = localStorage.getItem("token");	//获取token
+			var _isOriginator = getQueryString("isOriginator");//判断是参与者还是发起者
+			if(!_token){
+				alert("token为空");
+				return false;
+			}
+			getActiveList(_token,_dynamicId);	//加载详情列表
+			//滚动加载数据
+			$(window).scroll(function(){
+		        if($("body .content").height() - $(window).scrollTop() - $(window).height() < 0){
+		            getActiveList(_token,_dynamicId);	//加载详情列表
+		        }
+		    });
+			//评论
+			$("#commentBtn,.comment-input").on("click",function(){
+				$(".container-comment").hide();
+				$(".comment-box").show();
+				$("#commentContent").val("");
+				$("#hid-type").val("0");//评论
+				$("#commentContent").attr("placeholder","说点什么吧");
+			});
+			//取消评论
+			$("#commentCancelBtn").on("click",function(){
+				$(".container-comment").show();
+				$(".comment-box").hide();
+			});
+			//回复评论
+			$("body").on("click",".replyBtn",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				$("#hid-type").val("1");//回复
+				$("#commentContent").val("");
+				var $_parent = $(this).parents(".movement-list");
+				var _userId = $_parent.data("userid");
+				var _nickname = $_parent.data("nickname");
+				$("#hid-userid").val(_userId);
+				$(".container-comment").hide();
+				$(".comment-box").show();
+				$("#commentContent").attr("placeholder","回复"+_nickname);
+			});
+
+			//确定评论
+			$("#commentBoxBtn").on("click",function(){
+				var _type = $("#hid-type").val();
+				var _commentContent = $("#commentContent").val();
+				if(_type=="0"){
+					if(_commentContent==""){
+						alert("评论内容不能为空");
+						return;
+					}
+					$.post("/cindy/webapi/addDynamicComment.htm",{token:_token,comment:_commentContent,dynamicId:_dynamicId},function(data){
+						if(data.code==200){
+							alert("评论成功");
+							$(".container-comment").show();
+							$(".comment-box").hide();
+							page = 0;
+							loading_page = false;
+							stop_loading = false;
+							getActiveList(_token,_dynamicId);//刷新评论列表
+						}else{
+							alert(data.message);
+						}
+					});
+				}else if(_type == "1"){
+					if(_commentContent==""){
+						alert("回复内容不能为空");
+						return;
+					}
+					var _toUserId = $("#hid-userid").val();
+					$.post("/cindy/webapi/addReplyComment.htm",{token:_token,message:_commentContent,toUserId:_toUserId,dynamicId:_dynamicId},function(data){
+						if(data.code==200){
+							alert("回复成功");
+							$(".container-comment").show();
+							$(".comment-box").hide();
+							page = 0;
+							loading_page = false;
+							stop_loading = false;
+							getActiveList(_token,_dynamicId);//刷新评论列表
+						}else{
+							alert(data.message);
+						}
+					});
+				}
+			});
+			//删除动态
+			$(".container-comment .weui-header-right").on("click",function(){
+				if(confirm("确定要删除该动态吗？")){
+					$.post("/cindy/webapi/deleteDynamic.htm",{token:_token,dynamicId:_dynamicId},function(data){
+						if(data.code==200){	
+							alert("删除成功");
+							if(_isOriginator){//用户是参与者
+								window.location.href="/cindy/webapi/dinner/dinnerdetails.htm?dinnerId="+_dinnerId+"&dinnerInfoId="+_dinnerInfoId+"&isshowShadow=true";
+							}else{//否则是发起者
+								window.location.href="/cindy/webapi/incomeDinnerInfo.htm?token="+_token+"&dinnerId="+ _dinnerId +"&dinnerInfoId="+ _dinnerInfoId;
+							}
+						}else{
+							alert(data.message);
+						}
+					});
+				}
+			});
+			//删除评论
+			$("body").on("click",".deleteReplyBtn",function(){
+				if(confirm("确定要删除改评论吗？")){
+					var _messageId = $(this).parents(".movement-list").data("messageid");
+					$.post("/cindy/webapi/deleteDynamicCommentByMessageId.htm",{token:_token,messageId:_messageId},function(data){
+						if(data.code==200){
+							alert("删除成功");
+							page = 0;
+							loading_page = false;
+							stop_loading = false;
+							getActiveList(_token,_dynamicId);	//加载详情列表
+						}else{
+							alert(data.message);
+						}
+					});
+				}
+			});
+			//单选投票选买单人,投票选餐厅
+			$("body").on("click","#vote-option-list .weui_radio-label.radio",function(){
+				$(this).find("input").addClass("active").end().siblings().find("input").removeClass("active");
+			});
+			//多选投票选买单人，投票选餐厅
+			$("body").on("click","#vote-option-list .weui_radio-label.checkbox",function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				$(this).find("input").toggleClass("active");
+			});
+			//确定投票
+			$("#voteSureBtn").on("click",function(){
+				var _length = $("#vote-option-list .weui_radio-label .weui_cell_hd .active").length;
+				var _options = [];
+				var _option = {};
+				if(_length == 0){
+					alert("请选择投票选项");
+					return false;
+				}
+				$("#vote-option-list .weui_radio-label .active").each(function(i){
+					var $_this = $(this);
+					_option = {
+						optionId:$_this.parents(".weui_radio-label").data("dynamicid")
+					}
+					_options.push(_option);
+				});
+				var postData = {
+					dynamicId:_dynamicId,
+					candidateOpts:_options
+				}
+				postData = JSON.stringify(postData);
+				$.ajax({
+					type:"post",
+					async:false,
+					cache:false,
+					headers:{"Authorization":"Basic "+_token},
+					contentType: "application/json; charset=utf-8",
+					url:"/cindy/webapi/dynamicVote.htm",
+					data:postData,
+					success:function(data){
+						if(data.code==200){
+							alert("投票成功");
+							page = 0;
+							loading_page = false;
+							stop_loading = false;
+							getActiveList(_token,_dynamicId);
+						}else{
+							alert(data.message);
+						}
+					}
+				});
+			});
+			
+		});
+		//获取动态详情信息
+		function getActiveList(token,dynamicId){
+			if(loading_page || stop_loading) return;
+		    $("#pagination-loader").addClass("active");
+		    loading_page = true;
+		    if(page==0){
+				$("#comment-list").html("");
+		    }
+		    page++;
+		    $.ajax({
+		    	type:'get',
+		    	url:'/cindy/webapi/queryDynamicInfo.htm',
+		    	data:{
+		    		token:token,
+		    		dynamicId:dynamicId,
+		    		pageSize:5,
+		    		pageIndex:page
+		    	},
+		    	beforeSend:function(){
+		    		$("#loader").show();
+		    	},
+		    	success:function(data){
+		    		if(data.code==200){
+						$("#commentCount").html("0");
+						var _imgListHtml = "";
+						var _imgUrl = (data.model.headImgUrl==null||data.model.headImgUrl==undefined)?"/cindy/statics/images/defaultAvatar.png":data.model.headImgUrl;
+						//判断动态是否是本人发起的
+						if(data.model.userId == data.user.userAuthInfo.userId){
+							$(".container-comment .weui-header-right").show();
+						}else{
+							$(".container-comment .weui-header-right").hide();
+						}
+						$("#headImg").attr("src",_imgUrl);
+						$("#nickName").html(decodeURIComponent(data.model.nickname));
+						$("#acitveTime").html(data.model.createDate);
+						$("#activeContent").html(data.model.dynamicContent);
+						$("#hid-dynamicId").val(data.model.dynamicId);
+						if(data.model.dynamicType==5){
+							$("#vote-box").show();
+						}else{
+							$("#vote-box").hide();
+						}
+						if(data.model.images&&data.model.images.length){
+							for(var j=0;j<data.model.images.length;j++){
+								_imgListHtml += "<a href='javascript:;' data-size='100x100' data-med='' data-med-size='1920x1200' style='margin-right:10px;'><img src='"+data.model.images[j].imgUrl+"'></a>";
+							}
+							$("#imglist").html(_imgListHtml);
+						}
+						if(data.model.comments&&data.model.comments.length){
+							if(data.model.comments.length==5){
+								loading_page = false;
+							}else{
+								loading_page = true;
+							}
+							var _commentList = "";
+							var _length = data.model.comments;
+							$("#commentCount").html(data.model.commentNumber);
+							for(var i=0;i<_length.length;i++){
+								var _listImgUrl = _length[i].headImgUrl;
+								var _repayHtml="",_deleteBtn="",_headHtml="",_replayBtn="";
+								if(data.user.id == _length[i].userId){//如果不是本人发起的动态，则判断是否是自己的评论
+									_deleteBtn = "<span class='deleteReplyBtn'>删除</span>";
+									_replayBtn = "";
+								}else{
+									_deleteBtn = "";
+									_replayBtn = "<span class='dis replyBtn colyellow'>回复</span>";
+								}
+								// }
+								var _commentType = _length[i].commentType;
+								if(_commentType==0){//0为评论、1回复
+									_headHtml =	decodeURIComponent(_length[i].nickname)
+								}else if(_commentType==1){
+									_headHtml = decodeURIComponent(_length[i].nickname)+"<span style='color:#333;'> 回复 </span>"+decodeURIComponent(_length[i].toNickname);
+								}
+								_commentList += "<div class='movement-list' data-messageId='"+_length[i].messageId+"' data-userId='"+_length[i].userId+"' data-nickname='"+decodeURIComponent(_length[i].nickname)+"'><i class='head'><img src='"+_listImgUrl+"'></i>"
+									+"<div class='movement-name clearfix'><span class='left font16 colyellow'>"+_headHtml+"</span><span class='right'>"+_length[i].createDate+"</span></div>"
+									+"<div class='movement-info'><p class='movement-con'>"+_length[i].message+"</p>"+_repayHtml
+									+"<div class='comment tar'>"+_deleteBtn+_replayBtn+"</div></div></div>";
+							}
+							$("#comment-list").append(_commentList);
+							$("#loader").hide();
+						}else{
+							stop_loading = true;
+							$("#loader").hide();
+						}
+						//判断是否有投票选项
+						if(data.model.dynamicTp&&data.model.dynamicTp.length>0){
+							$("#showvotedis").show();
+							var _systemDate = getSystemDate();//获取系统时间
+							var _hoursMinus = getHourMinus(_systemDate,data.model.dynamicTp[0].endDate);//获取小时分钟
+							var hours,minutes;
+							if(_hoursMinus!=""){
+								hours = _hoursMinus.split("&")[0];
+								minutes = _hoursMinus.split("&")[1];
+							}
+
+							var _options = data.model.dynamicTp[0].options;
+							var _voteOptions="",_checkHtml="",_text="",_limitText="",_multiple="";
+							var _checkFlg = data.model.dynamicTp[0].tpStyle;
+							if(_checkFlg=="1"){//单选
+								_text = "单选";
+								_checkHtml = "radio";
+								_multiple="";
+							}else if(_checkFlg=="2"){//多选
+								_text = "多选";
+								_checkHtml = "checkbox";
+								_multiple="weui_check-label";
+							}
+							if(data.model.dynamicTp[0].limitStatus){
+								//无限制
+								_limitText = "限制"+data.model.dynamicTp[0].limitNumber+"人";
+							}else{
+								_limitText = "人数不限";
+							}
+							var _power = getPower(token,dynamicId);//获取投票权限 30000还未使用，40000投票结束
+							if(hours==0&&minutes==0||_power==40000||_power==""){//投票结束
+								$("#voteSureBtn").hide();
+								$("#showvotedis").find(".bggreen").hide().end().find(".bggrey").html("投票已结束").removeClass("ml6");
+								for(var m=0;m<_options.length;m++){
+									var _queen = "",_voteFlag = "";
+									if(_options[1].voteNumber == _options[0].voteNumber){//判断是否有相同的选项
+										_queen = "";
+									}else if(m==0){//第一项最高
+										_queen = "<i class='most-num'></i>";
+									}
+									if(_options[m].voteFlag){
+										_voteFlag = "<span class='span-icon bg333 ml6'>已投</span>";
+									}else{
+										_voteFlag = "";
+									}
+									_voteOptions += '<label class="weui_cell weui_radio-label weui_check_label relative"><div class="weui_cell_bd weui_cell_primary">'+
+											'<div class="vote-p"><span class="left"><span class="verm font16">'+_options[m].content+'</span>'+_voteFlag+'</span>'+
+											'<span class="right col333">'+_options[m].voteScale+'%<span class="ver-line">|</span>'+_options[m].voteNumber+'人</span>'+
+											'</div><div class="weui_progress_bar"><div class="weui_progress_inner_bar js_progress" style="width:'+_options[m].voteScale+'%"></div></div>'+
+											'</div>'+_queen+'</label>';
+								}
+							}else if(_power == 30000){//未投票
+								$("#voteSureBtn").show();
+								timeDown(hours,minutes);
+								for(var m=0;m<_options.length;m++){
+									if(_options[m].voteFlag){
+										_voteFlag = "<span class='span-icon bg333 ml6'>已投</span>";
+									}else{
+										_voteFlag = "";
+									}
+									_voteOptions += '<label class="weui_cell weui_radio-label weui_check_label '+_checkHtml+' '+_multiple+'" data-dynamicid='+_options[m].dynamicTpDetailId+'>'
+										+'<div class="weui_cell_hd"><input name="content" class="weui_radio" type="radio"></div>'
+										+'<div class="weui_cell_bd weui_cell_primary"><p class="font16">'+_options[m].content+'</p>'+_voteFlag+'</div></label>';
+								}
+							}else if(_power == 20000){//已投票
+								$("#voteSureBtn").hide();
+								timeDown(hours,minutes);
+								for(var m=0;m<_options.length;m++){
+									if(_options[m].voteFlag){
+										_voteFlag = "<span class='span-icon bg333 ml6'>已投</span>";
+									}else{
+										_voteFlag = "";
+									}
+									_voteOptions += '<label class="weui_cell weui_radio-label weui_check_label relative"><div class="weui_cell_bd weui_cell_primary">'+
+											'<div class="vote-p"><span class="left"><span class="verm font16">'+_options[m].content+'</span>'+_voteFlag+'</span>'+
+											'<span class="right col333">'+_options[m].voteScale+'%<span class="ver-line">|</span>'+_options[m].voteNumber+'人</span>'+
+											'</div><div class="weui_progress_bar"><div class="weui_progress_inner_bar js_progress" style="width:'+_options[m].voteScale+'%"></div></div>'+
+											'</div></label>';
+								}
+							}
+							$("#vote-option-list").html(_voteOptions);
+							$(".movement-con-info").html(""+_text+"<span>•</span>"+_limitText+"<span>•</span>已投"+data.model.dynamicTp[0].peopleNumber+"人");
+						}else{
+							$("#showvotedis").hide();
+						}
+					}else{
+						alert(data.message);
+					}
+		    	}
+		    });
+		}
+		//获取投票资格
+		function getPower(token,dynamicId){
+			var _power = "";
+			$.ajax({
+				type:"get",
+				async:false,
+				cache:false,
+				headers:{"Authorization":"Basic "+token},
+				data:{dynamicId:dynamicId},
+				url:"/cindy/webapi/dynamicVoteQualification.htm",
+				success:function(data){
+					if(data.code){
+						_power = data.model.status;
+					}
+				}
+			});
+			return _power;
+		}
+		//根据时间获时和分钟,调用时间倒计时
+		function getHourMinus(starTime,endTime){
+			var _endTime = endTime;
+			if(_endTime != ""&&_endTime != undefined&&_endTime != null){
+				_endTime = _endTime.slice(0,16);
+			}
+			var _startTime = starTime;
+			var _hidStartTime = $("#hid-systemDate").val();
+			if(_startTime==""||_startTime==null||_startTime==undefined){
+				_startTime = new Date();
+			}
+			var seconds = datediff("s",_startTime,_endTime);
+			var minutes = 0;
+			var hours = 0;
+			if(seconds>60){
+				minutes = parseInt(seconds/60);
+				seconds = seconds%60;
+				if(minutes>60){
+					hours = parseInt(minutes/60);
+					minutes = minutes%60;
+				}
+			}
+			return hours +"&"+minutes;
+		}
+		//投票选餐厅时间倒计时
+		function timeDown(hour,minus){
+			var hour=hour,minus=minus;
+			if(hour > 0){
+				if(minus > 0){
+					minus--;
+					if(minus == 0&&hour > 0){
+						minus = 60;
+						hour --;
+						setTimeout(function(){
+							timeDown(hour,minus);
+						},1000*60);
+					}else if(minus ==0&&hour == 0){
+						//停止投票
+						minus = 0;
+						hour = 0;
+					}
+				}
+				$("#showvoteHour").html(hour);
+				$("#showvoteMinus").html(minus);
+			}else if(hour == 0){
+				if(minus > 0){
+					$("#showvoteMinus").html(minus);
+					minus--;
+					setTimeout(function(){
+						timeDown(hour,minus);
+					},1000*60);
+				}else if(minus==0){
+					//停止投票
+					minus=0;
+					$("#showvoteMinus").html(0);
+				}
+				$("#showvoteHour").html(0);
+			}
+		}
+		//计算日期差
+		function datediff(strInterval,dtStart,dtEnd) {   
+		     if (typeof dtStart=='string'){dtStart = StringToDate(dtStart);}
+		     if (typeof dtEnd=='string'){dtEnd = StringToDate(dtEnd);}
+		     switch (strInterval) {   
+		         case 's' :return parseInt((dtEnd - dtStart) / 1000);  
+		         case 'n' :return parseInt((dtEnd - dtStart) / 60000);  
+		         case 'h' :return parseInt((dtEnd - dtStart) / 3600000);  
+		         case 'd' :return parseInt((dtEnd - dtStart) / 86400000);  
+		         case 'w' :return parseInt((dtEnd - dtStart) / (86400000 * 7));  
+		         case 'm' :return (dtEnd.getMonth()+1)+((dtEnd.getFullYear()-dtStart.getFullYear())*12) - (dtStart.getMonth()+1);  
+		         case 'y' :return dtEnd.getFullYear() - dtStart.getFullYear();  
+		     }  
+		 } 
+		function StringToDate(str) {
+			str = str.replace(/-/g, "/");
+			var val = Date.parse(str);
+			var newDate = new Date(val);
+			return newDate;
+		}
+		//获取系统时间
+		function getSystemDate(){
+			var _systemDate = "";
+			$.ajax({
+				type:'post',
+				url:'/cindy/dinnerDetails/getSystemTime.htm',
+				success:function(data){
+					_systemDate = data.systemDate;
+				}
+			});
+			return _systemDate;
+		}
+	</script>
+</body>
+</html>

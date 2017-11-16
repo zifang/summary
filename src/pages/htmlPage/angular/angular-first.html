@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+<body ng-app="test">
+	<div ng-controller="testCtrl">
+		{{price | currency:'¥'}}
+		<br/>
+		{{price | number:2}}
+		<p>{{dis|limitTo:2}}</p>
+		{{time | date:'yyyy-MM-dd HH:mm:hh'}}
+		<br>
+		{{time | date:'yyyy/MM/dd'}}
+		<br>
+		{{time | date:'medium'}}
+		<br>
+		{{time | date:'short'}}
+		<br>
+		{{time | date:'longDate'}}
+		<br>
+		{{time | date:'mediumDate'}}
+		<br>
+		{{time | date:'shortDate'}}
+		<br>
+		{{upperStr | uppercase}}
+		<br>
+		{{upperStr | lowercase}}
+		<br>
+		{{lowercaseName}}
+		<table border="1" cellspacing="0">
+			<tr>
+				<td ng-click="orderBy('id')">编号
+					<span ng-show="status.id">↑</span>
+					<span ng-show="!status.id">↓</span>
+				</td>
+				<td ng-click="orderBy('name')">名称
+					<span ng-show="status.name">↑</span>
+					<span ng-show="!status.name">↓</span>
+				</td>
+				<td ng-click="orderBy('click')">点击次数
+					<span ng-show="status.click">↑</span>
+					<span ng-show="!status.click">↓</span>
+				</td>
+			</tr>
+			<tr ng-repeat="(k,v) in lists" align="center">
+				<td>{{v.id}}</td>
+				<td>{{v.name}}</td>
+				<td>{{v.click}}</td>
+			</tr>
+		</table>
+		<br>
+		<input type="text" ng-model="content">{{error}}
+		<br>
+		<!-- 按钮阔可用不可用 -->
+		<input type="checkbox" ng-model="btnstatus" ng-init="btnstatus=true" ng-true-value="0" ng-false-value="1">
+		{{btnstatus}}
+		<input type="button" ng-disabled="btnstatus" value="提交">
+		<!-- ng-bind-html 依赖于ngSanitize模块 -->
+		<div ng-bind-html="myHtml"></div>
+		<div ng-click="showHtml()" ng-model="testContent">点我试试</div>
+		<!-- ng-bind-template可以绑定多个表达式 -->
+		<div ng-bind-template="{{dis}} {{price}}"></div>
+		<a href="#/demo/details">详情页面</a>
+		<br>
+		<a href="#/demo/aboutus">关于我们</a>
+		<div ng-view></div>
+	</div>
+</body>
+<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+<script src="https://code.angularjs.org/1.0.0/angular-sanitize-1.0.0.min.js"></script>
+<script>
+	angular.module("test",['ngSanitize','ui.router'])
+	.controller("testCtrl",['$scope','$filter',function($scope,$filter){
+		$scope.price=123.45346;//金钱
+		$scope.dis="测试数据不知道是啥";
+		$scope.time=new Date();//日期格式化
+		$scope.upperStr="fang";//大小写
+		$scope.lowercaseName = $filter('lowercase')('Ari');
+		$scope.lists=[
+			{id:1,name:"主食",click:100},
+			{id:2,name:"小菜",click:200},
+			{id:3,name:"汤",click:300},
+			{id:4,name:"饮料",click:400},
+			{id:5,name:"面食",click:500}
+		];
+		$scope.myHtml =  'I am an <code>HTML</code>string with ' +
+			       '<a href="#">links!</a> and other <em>stuff</em>';
+		$scope.showHtml = function(scope,element){
+			element.innerHtml=
+			       'I am an <code>HTML</code>string with ' +
+			       '<a href="#">links!</a> and other <em>stuff</em>';
+		}
+		//排序
+		$scope.status={id:false,name:false,click:false};
+		$scope.orderBy = function(param){
+			$scope.status[param] = !$scope.status[param];
+			// if(arguments.callee[param]==undefined){
+			// 	arguments.callee[param]=false;
+			// }
+			// arguments.callee[param]=!arguments.callee[param];
+			$scope.lists = $filter('orderBy')($scope.lists,param,$scope.status[param]);
+			// $scope.lists = $filter('orderBy')($scope.lists,param,arguments.callee[param]);
+		}
+
+		//监听
+		$scope.content="";
+		$scope.$watch("content",function(n,o){
+			$scope.error = n.length>3?"长度不能大于三":"";
+		});
+	}])
+	
+	.config(function($routeProvider){
+		$routeProvider.when('/demo/:detailId',{
+			templateUrl:'detail.html',
+			controller:'detailCtrl',
+
+		}).when('/demo/:abouts',{
+			templateUrl:'about.html',
+			controller:'aboutCtrl'
+		})
+
+	})
+
+</script>
+</html>

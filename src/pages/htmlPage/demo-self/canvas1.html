@@ -1,0 +1,57 @@
+<!DOCTYPE HTML> 
+<html>          
+<body style="background-image: url(bj.jpg);">   
+	<button onclick="aa();">big</button>       
+	<canvas id="canvas" width="1500" height="800">  
+<p>                 
+Your browserdoes not support the canvas element!             
+</p>         
+</canvas>         
+<script type="text/javascript">
+            var canvas = document.getElementById("canvas");
+            var context2D = canvas.getContext("2d");
+			var pic = new Image();
+            pic.src = "car.png"; 
+			x = 0, y =0;
+			x0 = 0, y0 = 0;//记录上一个坐标点位置，用于清除上一次绘图
+			var angle=10;
+			m=1,n=1;
+		   //注意目录结构，这里是把图片和html放在一个目录的
+           //注意下面方法中画笔状态的保护，这在很多情况下都会使用到
+            function draw() {
+				context2D.beginPath();   
+				//设置线条颜色为蓝色   
+				context2D.strokeStyle = "red";   
+				//以canvas中的坐标点(10,10)作为绘制起始点，绘制一个宽度为80px、高度为50px的矩形  	
+				context2D.rect(100, 100, 200, 200);   
+				//按照指定的路径绘制直线   
+				context2D.stroke();   
+				//关闭绘制路径   
+				context2D.closePath(); 
+                context2D.clearRect(x0, y0, 24, 24);	//清除上一次绘图
+                context2D.save(); //保存画笔状态
+				context2D.scale(m,n);
+
+                context2D.translate(x,y); //开始移动画笔/**/
+
+                x0 = x;
+                y0 = y;
+
+                context2D.translate(12,12);		//移动图像中心(图片本身的中心点)
+				context2D.rotate(angle * Math.PI/180);
+                context2D.translate(-12,-12); //移动图像中心
+
+				angle=angle+10;
+				
+                context2D.drawImage(pic, 0, 0);
+                context2D.restore(); //绘制结束以后，恢复画笔状态
+				x=x+20;
+				y=y+20;
+            }
+            setInterval(draw, 500)
+			function aa(){
+				 m=m+2,n=n+2;
+			}
+        </script>     
+</body>  
+</html>

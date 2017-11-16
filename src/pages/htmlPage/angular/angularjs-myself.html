@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-self</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+</head>
+<body ng-app="tableApp" ng-controller="tableCtrl">
+	<!-- ng-include 两种书写形式 -->
+	<ng-include src="'header.html'" onload="" autoscroll=""></ng-include>
+	<!-- <div ng-include="'header.html'"></div> -->
+	<!-- ngCloak -->
+	<div> ngCloak 指令用于阻止浏览器闪现未经编译的Angular html 模版。利用这个指令避免出现由于html模版展现引起的烦人的显现效果
+	这个指令可以绑定在body元素上。但是最佳用法应该是绑定在最小的部分，这样可以更好的渲染浏览器视图。
+	ngCloak指令和下面的css规则一起合作。请在html页面上添加css模式请添加angular－csp.css 。
+
+	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+	}</div>
+	<!-- ngClassOdd,ngClassEven -->
+	<div>
+		ngClassOdd和ngClassEven指令与ngClass指令相同，不同之处在于，这两个指令与ng－repeat指令合作，在偶数或者奇数行产生作用。所有这两个指令只有和ng－repeat一起使用的时候才可以。
+	</div>
+	<!-- select -->
+	<select class="form-control" ng-model="selectStatus" ng-options="status.id as status.name for status in textStatus">
+		<option value="">——请选择——</option>
+	</select>
+	
+	<!-- table 数据展示、添加、删除、筛选、查看详情信息、排序 -->
+	<form role="form">
+	  <div class="form-group">
+	    <label for="number">编号</label>
+	    <input type="number" class="form-control" ng-model="number" placeholder="number">
+	  </div>
+	  <div class="form-group">
+	    <label for="name">名称</label>
+	    <input type="text" class="form-control" ng-model="name" placeholder="name">
+	  </div>
+	  <button type="button" class="btn btn-primary" ng-click="addData()">提交</button>
+	</form>
+	<!-- table -->
+	<p class="text-center" ng-show="lists.length==0">暂无数据</p>
+	<table class="table table-hover table-bordered" ng-show="lists.length!=0">
+		<tr>
+			<td ng-click="orderBy('id')">编号
+				<span ng-show="status.id">↑</span>
+				<span ng-show="!status.id">↓</span>
+			</td>
+			<td ng-click="orderBy('name')">名称
+				<span ng-show="status.name">↑</span>
+				<span ng-show="!status.name">↓</span>
+			</td>
+			<td ng-click="orderBy('upclick')">赞数
+				<span ng-show="status.upclick">↑</span>
+				<span ng-show="!status.upclick">↓</span>
+			</td>
+			<td ng-click="orderBy('downclick')">喷数
+				<span ng-show="status.downclick">↑</span>
+				<span ng-show="!status.downclick">↓</span>
+			</td>
+			<td ng-click="orderBy('status')">状态
+				<span ng-show="status.status">↑</span>
+				<span ng-show="!status.status">↓</span>
+			</td>
+			<td>操作</td>
+		</tr>
+		<tr ng-repeat="item in lists" ng-click="showinfo($index)">
+			<td>{{item.id}}</td>
+			<td>{{item.name | star}}</td>
+			<td>{{item.upclick}}</td>
+			<td>{{item.downclick}}</td>
+			<td ng-class="{green:item.status==0,red:item.status==1,yellow:item.status==2,blue:item.status==3}">{{item.status | switchStatus}}</td>
+			<td ng-click="delete($index)"><a href="javascript:;">删除</a></td>
+		</tr>
+	</table>
+	<div ng-controller="listCtrl"></div>
+	<!-- 展开折叠数据 -->
+	<div>
+		<panel>
+			<li ng-repeat="item in panelData">{{item}}</li>
+		</panel>
+		<br>
+	</div>
+	<!-- forEach -->
+	<span ng-bind="dadada"></span>
+
+	<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+	<script type="text/javascript">
+		angular.module('tableApp',[])
+		.controller("tableCtrl",['$scope','$filter',function($scope,$filter){
+			$scope.data=[
+				{id:1,name:"数据",upclick:23,downclick:12,status:1},
+				{id:2,name:"数据",upclick:3,downclick:2,status:2},
+				{id:3,name:"数据",upclick:83,downclick:5,status:0},
+				{id:4,name:"数据",upclick:50,downclick:9,status:3}
+			];
+			var joinString=[];
+			angular.forEach($scope.data, function (value, key) {
+			      this.push(key + ': ' + value.name);
+			      }, joinString);
+			$scope.dadada = joinString.join(",");
+			$scope.lists = $scope.data;
+			//状态存储
+			$scope.textStatus = [
+				{id:0,name:'正常'},
+				{id:1,name:'取消'},
+				{id:2,name:'暂停'},
+				{id:3,name:'后加'},
+			];
+			$scope.panelTitle = "展开列表";
+			$scope.ifShow = false;
+			$scope.panelData = ["选项一","选项二","选项三"];
+			//添加数据
+			$scope.addData = function(){
+				$scope.lists.unshift({id:$scope.number,name:$scope.name,upclick:0,downclick:0,status:0});
+			}
+			//删除数据
+			$scope.delete = function(id){
+				$scope.lists.splice(id,1);
+			}
+			//显示信息
+			$scope.showinfo = function(index){
+				$scope.number=$scope.lists[index].id;
+				$scope.name=$scope.lists[index].name;
+			}
+			//排序
+			$scope.status={id:false,name:false,upclick:false,downclick:false,status:false};
+			$scope.orderBy = function(param){
+				$scope.status[param] = !$scope.status[param];
+				$scope.lists = $filter('orderBy')($scope.lists,param,$scope.status[param]);
+			};
+			//监控
+			
+			$scope.$watch('search',function(n,o){
+				$scope.lists = $filter('filter')($scope.data,n);
+			});
+
+			$scope.$watch('selectStatus',function(n,o){
+				$scope.lists = $filter('filter')($scope.data,n);
+			})
+
+		}])
+		//过滤,状态转换
+		.filter('switchStatus',function(){z
+
+			return function(status){
+				switch(status){
+					case 0:
+						return "正常";
+					case 1:
+						return "取消";
+					case 2:
+						return "暂停";
+					case 3:
+						return "后加";
+				}
+			}
+		})
+		//星级转换
+		.filter('star',function(){
+			return function(param){
+				return param = param.substr(0,2) + new String("*");
+			}
+		})
+		//筛选
+		.controller("listCtrl",['$scope','$http',function($scope,$http){
+			$http.get('list.php').success(function(data){
+				// console.log(data);
+			})	
+		}])
+		//依赖注入
+		.directive("panel",function(){
+			return {
+				restrict:'EA',
+				replace:false,
+				transclude:true,
+				templateUrl:'pane.html',
+				link:function(scope,element,attr){
+					scope.toggle = function(){
+						scope.ifShow = !scope.ifShow;
+						scope.panelTitle = scope.ifShow?"折叠":"展开";
+					}
+				} 
+			}
+		})
+	</script>
+</body>
+</html>

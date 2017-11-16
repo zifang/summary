@@ -1,0 +1,154 @@
+<!-- echart图表的使用方法 -->
+<script type="text/javascript">
+  //初始化图表
+$('[data-toggle=popover]').popover();
+var statusChart;
+   require.config({
+      paths: {
+          echarts: '/hqs/js/echarts'
+      }
+  });
+  require(
+      [
+          'echarts',
+          'echarts/chart/bar',
+          'echarts/chart/line',
+          'echarts/chart/pie',
+          'echarts/chart/funnel'
+      ], getFinanceTableChart //异步加载的回调函数绘制图表
+  );
+
+
+    //获取图表数据
+function getFinanceTableChart(ec) {
+  // 基于准备好的dom，初始化echarts图表
+     statusChart = ec.init(document.getElementById('coachChart')); 
+     //图表显示提示信息
+     statusChart.showLoading({
+       text: "图表数据正在努力加载..."
+     });
+     //定义图表options
+     var statusOption = {
+      title : {
+          text: '业务统计',
+          x:'left'
+      },
+      tooltip : {
+          trigger: 'axis'
+      },
+      legend: {
+          data:['报名费','培训费','其他','加油费','维修费','报名退费','培训退费'],
+          'selected':{
+                  '报名费':true,
+                  '培训费':true,
+                  '其他':true,
+                  '加油费':false,
+                  '维修费':false,
+                  '报名退费':false,
+                  '培训退费':false
+              },
+              x:'right'
+      },
+      toolbox: {
+          show : true,
+          orient: 'vertical',
+          x: 'right',
+          y: 'center',
+          feature : {
+              mark : {show: false},
+              dataView : {show: false, readOnly: false},
+              magicType : {show: true, type: ['line', 'bar']},
+              restore : {show: false},
+              saveAsImage : {show: true}
+          }
+      },
+      calculable : true,
+      xAxis : [
+          {
+              type : 'category',
+               splitLine :{show : false} ,
+              name: "日期",
+              data : []
+          }
+      ],
+      yAxis : [
+          {
+              type : 'value',
+              name: "总数"
+          }
+      ],
+      series : [
+          {
+              name:'培训费',
+              type:'line',
+              data:[]
+          },
+          {
+              name:'报名费',
+              type:'line',
+              data:[]
+          },
+           {
+              name:'其他',
+              type:'line',
+              data:[]
+          },
+          {
+            name:'加油费',
+            type:'line',
+            data:[]
+          },
+          {
+            name:'维修费',
+            type:'line',
+            data:[]
+          },
+          {
+            name:'报名退费',
+            type:'line',
+            data:[]
+          },
+          {
+            name:'培训退费',
+            type:'line',
+            data:[]
+          }
+      ]
+  };
+    var _dateType=$(".option-btn.active").data("value"),
+    _startDate,_endDate;
+  if(_dateType=="month"){
+    _startDate=$("#s_monthstar").val();
+    _endDate=$("#s_monthend").val();
+  }else if(_dateType=="day"){
+    _startDate=$("#s_startDate").val();
+    _endDate=$("#s_endDate").val();
+  }
+  var _schoolId=$("#s_schoolName").val();
+     $.ajax({
+       type:"get",
+       async: false, //同步执行
+       dataType: "json", //返回数据形式为json
+       data:{schoolId:_schoolId},
+       url:"<c:url value='/report/finance/"+_dateType+"/chart/"+_startDate+"/"+_endDate+".shtml'/>",
+       success: function(result) {
+         if (result) {
+        if(result.xAxis.length > 0){
+          statusOption.xAxis[0].data = result.xAxis;
+          statusOption.series = result.series;
+        }else{
+          /* statusOption.xAxis[0].data = [_startDate + '至'+_endDate]; */
+          var array = ["未检索到该时间段的统计数据"];
+             statusOption.xAxis[0].data = array;
+        }
+
+           statusChart.hideLoading();
+           statusChart.setOption(statusOption);
+         }
+       },
+       error: function(errMsg) {
+         alert("不好意思，图表数据请求失败了！");
+       }
+     });
+}
+</script>

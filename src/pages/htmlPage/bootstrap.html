@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bootstrap常用方法</title>
+</head>
+<body>
+	<!-- bootstrap popover的用法 -->
+	<span class="safeman" data-original-title="杨帅令" data-content="考场：顺德大车<br/>身份证号：410103199311290120">杨帅令</span>
+	<script type="text/javascript">
+		$("#dptbody2 tr .tdofficer").append("<span class=\"safeman\" onclick=\"pupover()\" data-original-title="+_officerName+" data-content=\"考场："+_officerGroundName+"<br/>身份证号："+_identityCard+" \">"+_officerName+"</span>");
+		function pupover(){
+				var setTime;
+				$(".safeman").on("mouseenter",function () {
+					var $this = $(this);
+					setTime = setTimeout(function () {
+					   $this.popover({html:true});
+					}, 10);
+				}).on("mouseleave",function () {
+					clearTimeout(setTime);
+					$(this).popover("hide");
+				});
+			}
+	</script>
+	
+	<!-- bootstrap typeahead用法 -->
+	<input type="text" id="mycoach" name="mycoach" placeholder="教练姓名" class="input-small" autocomplete="off" data-minLength="1" data-source='' data-items="6" data-provide="typeahead">
+	<input type="hidden" name="coachId" id="coachId">
+	<script type="text/javascript">
+	  	//初始化教练列表
+		var s="[",m='[';
+		$.getJSON('<c:url value="/coach/getall.shtml"/>',{name:$('#mycoach').val()},function(data){
+			$.each(data,function(i,n){
+				s+='"'+n.nameLience+'"';
+				//存储一个含有id的集合，便于选择的时候,获取改字符串对应的id
+				m+='"'+n.id+'&'+n.nameLience+'"';
+				if(i<data.length-1){
+					s+=',';
+					m+=',';
+				}
+			});
+			$('#mycoach').attr('data-source',s+']').attr('data-lists',m+']');
+		});
+
+		//重置select方法
+		$.fn.typeahead.Constructor.prototype.select = function () {
+			var _listJson=$("#mycoach").data("lists"),
+				_hidInput=$("#coachId"),
+	      		_val=this.$menu.find('.active').attr('data-value');
+	   	    _hidInput.val("");
+	        var val = _val.split("(")[1].split("-")[0];
+		       this.$element.val(this.updater(val)).change();
+		    //获取选中的对象的id
+	        for(var i=0;i<_listJson.length;i++){
+		       	if(_listJson[i].indexOf(_val)>0){
+		       		var _splitVal=_listJson[i].split("&")[0];
+		       		_hidInput.val(_splitVal);
+		       	}
+	        }
+	        return this.hide();
+	   };
+	</script>
+</body>
+</html>

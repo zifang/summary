@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>zoomInOut slider</title>
+</head>
+<style>
+	
+	.wrapper{
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+	.aside-top,.aside-bottom{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 200px;
+		height: 200px;
+		border:1px solid #ddd;
+		background-color: #fff;
+	}
+	.aside-bottom{
+		top: 200px;
+		bottom:0;
+		margin-top: 10px;
+	}
+	.content{
+		position: absolute;
+		top: 0;
+		left: 200px;
+		width:500px;
+		height: 400px;
+		margin-left: 10px;
+		border:1px solid #ddd;
+		background-color: #fafafa;
+	}
+	.slider{
+		position: relative;
+		top:450px;
+		left: 5px;
+		width: 200px;
+		height: 200px;
+		border:1px solid #ddd;
+		overflow: hidden;
+		zoom:1;
+	}
+	.slider > img{
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	.slider > img:first-child{
+		-webkit-animation: sliderLeft3 2s 4s linear infinite;
+				animation: sliderLeft3 2s 4s linear infinite;
+	 } 
+	.slider > img:nth-child(2){
+		-webkit-animation: sliderLeft2 2s 2s linear infinite;
+				animation: sliderLeft2 2s 2s linear infinite;
+	}
+	.slider > img:last-child{
+		-webkit-animation: sliderLeft 2s linear infinite;
+				animation: sliderLeft 2s linear infinite;
+	}
+	@-webkit-keyframes sliderLeft{
+		0%{
+			opacity:.9;
+		}
+		100%{
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+	@-webkit-keyframes sliderLeft2{
+		0%{
+			opacity: .9;
+		}
+		100%{
+			opacity: 1;
+			z-index: 2;
+		}
+	}
+
+	@-webkit-keyframes sliderLeft3{
+		0%{
+			opacity: .9;
+		}
+		100%{
+			opacity: 1;
+			z-index: 3;
+		}
+	}
+	
+</style>
+<body>
+	<div class="wrapper">
+		<div id="asidetop" class="aside-top"></div>
+		<div id="asidebottom" class="aside-bottom"></div>
+		<div id="content"class="content"></div>
+		<div class="slider">
+			<img src="images/a.jpg" alt="">
+			<img src="images/b.jpg" alt="">
+			<img src="images/c.jpg" alt="">
+		</div>
+	</div>
+	<img src="images/c.jpg" srcset="cat-2x.jpg 2x,cat-3x.jpg 3x" width="150" height="180" alt="" style="position:relative;z-index:100;">
+	<script>
+
+		window.onload = function(){
+			zoomIn("asidetop", 0.25, 0.25);
+			zoomIn("asidebottom", 0.25, 0.25);
+			zoomIn("content", 0.25, 0.25);
+		};
+		
+		function zoomIn(id,wzoom,hzoom){
+			var obj = document.getElementById(id);
+
+			var width = obj.clientWidth;
+			var height =obj.clientHeight;
+
+			width = width*(1 + wzoom);
+			height = height*(1 + hzoom);
+
+			obj.onmouseover = function(){
+				obj.style.width = width  +"px";
+				obj.style.height = height + "px";
+				obj.style.zIndex = 5;
+			};
+
+			obj.onmouseleave = function(){
+				obj.style.width = "";
+				obj.style.height = "";
+				obj.style.zIndex = 0;
+			};
+		}
+	</script>
+</body>
+</html>

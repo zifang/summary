@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>glup</title>
+</head>
+<body>
+	http://www.ydcss.com/archives/18
+	<div>
+		1、glup：的全局安装
+			npm install --global glup
+		2、glup作为项目的依赖开发安装
+			npm install --save-dev glup
+			<p>细心的你可能会发现，我们全局安装了gulp，项目也安装了gulp，全局安装gulp是为了执行gulp任务，本地安装gulp则是为了调用gulp插件的功能。</p>
+			<div>
+				-F, --force-latest # 安装时若有冲突则强制安装最新版；
+				-p, --production # 不要安装开发依赖的package（一般用于生产环境）；
+				-S, --save # 安装完成后将此package记录在bower.json文件的dependencies项中；
+				-D, --save-dev # 安装完成后将此package记录在bower.json文件的devDependencies项中(一般用于开发环境)
+			</div>
+
+		3、在项目根目录下创建一个名为 gulpfile.js 的文件：
+			<script type="text/javascript">
+				var gulp = require('gulp');
+				gulp.task('default', function() {
+				  // 将你的默认的任务代码放在这
+				});
+			</script>
+		4、运行 gulp
+			glup
+		5、安装--save-dev gulp失败时候
+			执行：$ npm install -g node-gyp
+		6、新建package.json
+			npm init
+		7、安装bower
+			npm install -g bower
+			<div>
+				首先进入项目目录下，新建文件1.txt
+				然后命令行进入项目目录下，输入命令重命名该文件为.bowerrc：
+				rename 1.txt .bowerrc
+			</div>
+			bower install jquery#版本号（bower install jquery --save）
+			<div>
+				上面安装的是最新版的高版本jquery，假如想要兼容低版本浏览器的呢？
+				已经查到兼容低版本浏览器的jquery版本为1.11.3，下面直接修改bower.json文件中的jquery版本号如下：
+				<script type="text/javascript">
+					  "dependencies": {
+					    "jquery": "~1.11.3"
+					  }
+				</script>
+				然后执行如下命令：
+
+				bower update
+				bower就会为你切换jquery的版本了
+			</div>
+			安装包的卸载：bower uninstall jquery
+		8、bower初始化
+			bower init（新建bower.json）
+
+		9、npm install -g cnpm
+			重新更新下 nmp install -g graceful-fs
+
+			 throw new TypeError('Invalid Version: ' + version); ^ TypeError: Invalid Version: undefined at new SemVer 
+	</div>
+</body>
+</html>

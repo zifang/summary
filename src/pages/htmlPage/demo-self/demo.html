@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" manifest="cache.manifest">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<meta name="renderer" content="webkit">
+	<meta http-equive="X-UA-compatible" content="IE=Edge,chrome=1">
+	<!--[if gt IE 8]>
+	
+	<![endif]-->
+	<title>demo</title>
+	<style>
+		/* body{
+			background-color:green;
+		} */
+		.box div{
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			background-color: #ddd;
+			margin: 2px;
+		}
+		@keyframes scale{
+			0%{
+				opacity: 1;
+				-webkit-transform: scale(1);
+					-ms-transform: scale(1);
+					 -o-transform: scale(1);
+						transform: scale(1);
+			}
+			45%{
+				opacity: 0.7;
+				-webkit-transform: scale(0.1);
+					-ms-transform: scale(0.1);
+					 -o-transform: scale(0.1);
+						transform: scale(0.1);
+			}
+			80%{
+				opacity: 1;
+				-webkit-transform: scale(1);
+					-ms-transform: scale(1);
+					 -o-transform: scale(1);
+						transform: scale(1);
+			}
+		}
+		.box > div:nth-child(1){
+			-webkit-animation: scale 0.75s -0.24s ease-in infinite;
+				 -o-animation: scale 0.75s -0.24s ease-in infinite;
+					animation: scale 0.75s -0.24s ease-in infinite;
+		}.box > div:nth-child(2){
+			-webkit-animation: scale 0.75s -0.12s ease-in infinite;
+				 -o-animation: scale 0.75s -0.12s ease-in infinite;
+					animation: scale 0.75s -0.12s ease-in infinite;
+		}.box > div:nth-child(3){
+			-webkit-animation: scale 0.75s 0s ease-in infinite;
+				 -o-animation: scale 0.75s 0s ease-in infinite;
+					animation: scale 0.75s 0s ease-in infinite;
+		}
+
+		
+		@keyframes line-scale{
+			0%{
+				-webkit-transform: scaleY(1);
+				   -moz-transform: scaleY(1);
+						transform: scaleY(1);
+			}50%{
+				-webkit-transform: scaleY(0.4);
+				   -moz-transform: scaleY(0.4);
+						transform: scaleY(0.4);
+			}100%{
+				-webkit-transform: scaleY(1);
+				   -moz-transform: scaleY(1);
+						transform: scaleY(1);
+			}
+		}
+
+		.line-box{
+			margin-top: 15px;
+		}
+		
+		.line-box div{
+			display: inline-block;
+			width: 3px;
+			height: 20px;
+			background-color: #ddd;
+			margin: 2px;
+		}
+		.line-box > div:nth-child(1){
+			-webkit-animation: line-scale 0.75s -0.48s ease-in infinite;
+			   -moz-animation: line-scale 0.75s -0.48s ease-in infinite;
+					animation: line-scale 0.75s -0.48s ease-in infinite;
+		}
+		.line-box > div:nth-child(2){
+			-webkit-animation: line-scale 0.75s -0.36s ease-in infinite;
+			   -moz-animation: line-scale 0.75s -0.36s ease-in infinite;
+					animation: line-scale 0.75s -0.36s ease-in infinite;
+		}
+		.line-box > div:nth-child(3){
+			-webkit-animation: line-scale 0.75s -0.24s ease-in infinite;
+			   -moz-animation: line-scale 0.75s -0.24s ease-in infinite;
+					animation: line-scale 0.75s -0.24s ease-in infinite;
+		}
+		.line-box > div:nth-child(4){
+			-webkit-animation: line-scale 0.75s -0.12s ease-in infinite;
+			   -moz-animation: line-scale 0.75s -0.12s ease-in infinite;
+					animation: line-scale 0.75s -0.12s ease-in infinite;
+		}
+		.line-box > div:nth-child(5){
+			-webkit-animation: line-scale 0.75s 0s ease-in infinite;
+			   -moz-animation: line-scale 0.75s 0s ease-in infinite;
+					animation: line-scale 0.75s 0s ease-in infinite;
+		}
+		@-webkit-keyframes ball-spin-fade-loader {
+			50% {
+				opacity: .3;
+				-webkit-transform: scale(.4);
+				transform: scale(.4)
+			}
+
+			100% {
+				opacity: 1;
+				-webkit-transform: scale(1);
+				transform: scale(1)
+			}
+		}
+
+		@keyframes ball-spin-fade-loader {
+			50% {
+				opacity: .3;
+				-webkit-transform: scale(.4);
+				transform: scale(.4)
+			}
+
+			100% {
+				opacity: 1;
+				-webkit-transform: scale(1);
+				transform: scale(1)
+			}
+		}
+
+		.ball-spin-fade-loader {
+			position: relative
+		}
+
+		.ball-spin-fade-loader>div:nth-child(1) {
+			top: 25px;
+			left: 0;
+			-webkit-animation: ball-spin-fade-loader 1s 0s infinite linear;
+			animation: ball-spin-fade-loader 1s 0s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(2) {
+			top: 17.05px;
+			left: 17.05px;
+			-webkit-animation: ball-spin-fade-loader 1s .12s infinite linear;
+			animation: ball-spin-fade-loader 1s .12s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(3) {
+			top: 0;
+			left: 25px;
+			-webkit-animation: ball-spin-fade-loader 1s .24s infinite linear;
+			animation: ball-spin-fade-loader 1s .24s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(4) {
+			top: -17.05px;
+			left: 17.05px;
+			-webkit-animation: ball-spin-fade-loader 1s .36s infinite linear;
+			animation: ball-spin-fade-loader 1s .36s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(5) {
+			top: -25px;
+			left: 0;
+			-webkit-animation: ball-spin-fade-loader 1s .48s infinite linear;
+			animation: ball-spin-fade-loader 1s .48s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(6) {
+			top: -17.05px;
+			left: -17.05px;
+			-webkit-animation: ball-spin-fade-loader 1s .6s infinite linear;
+			animation: ball-spin-fade-loader 1s .6s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(7) {
+			top: 0;
+			left: -25px;
+			-webkit-animation: ball-spin-fade-loader 1s .72s infinite linear;
+			animation: ball-spin-fade-loader 1s .72s infinite linear
+		}
+
+		.ball-spin-fade-loader>div:nth-child(8) {
+			top: 17.05px;
+			left: -17.05px;
+			-webkit-animation: ball-spin-fade-loader 1s .84s infinite linear;
+			animation: ball-spin-fade-loader 1s .84s infinite linear
+		}
+
+		.ball-spin-fade-loader>div,.ball-spin-loader>div {
+			-webkit-animation-fill-mode: both;
+			width: 15px;
+			height: 15px;
+			border-radius: 100%
+		}
+		.ball-spin-fade-loader{
+			height: 100px;
+			width: 100px;
+			margin: 50px;
+		}
+		.ball-spin-fade-loader>div {
+			background-color: #f00;
+			margin: 2px;
+			animation-fill-mode: both;
+			position: absolute
+		}
+
+
+		.hover-ltr{
+			margin-top: 15px;
+		}
+		.hover-ltr a{
+			position: relative;
+			display: inline-block;
+			text-decoration: none;
+			padding:10px;
+			border:1px solid #ddd;
+		}
+		.hover-ltr a:before{
+			content: "";
+			position: absolute;
+			z-index: -1;
+			left: 50%;
+			right: 50%;
+			bottom:0;
+			height: 4px;
+			background-color: #08c;
+			-webkit-transition: left 0.3s ease-out, right 0.3s ease-out;
+			   -moz-transition: left 0.3s ease-out, right 0.3s ease-out;
+					transition: left 0.3s ease-out, right 0.3s ease-out; 
+		}
+		.hover-ltr a:hover:before{
+			right: 0;
+			left: 0;
+		}
+		.container{
+			position: relative;
+			margin-top: 15px;
+			background-color: #08c;
+			width:calc(50% - 40px);
+			width: -webkit-calc(50% - 40px);
+			margin: 20px auto;
+		}
+		.bg{
+			position: absolute;
+			left: 0;
+			top:0;
+			bottom:0;
+			-webkit-transform: rotate(0,0,0,0deg);
+			   -moz-transform: rotate(0,0,0,0deg);
+					transform: rotate(0,0,0,0deg);
+		}
+		.container:hover .bg{
+			-webkit-transform: rotate(1,0,0,90deg);
+			   -moz-transform: rotate(1,0,0,90deg);
+					transform: rotate(1,0,0,90deg);
+		}
+
+
+		body{counter-reset:title;}
+		.wrapper h1{counter-reset:subtitle;}
+		.wrapper h1:before{counter-increment:title;content:"第" counter(title) "章 ";}
+		.wrapper h2:before{counter-increment:subtitle;content:"第" counter(subtitle) "节 ";}
+
+		.out{
+			position: relative;
+		}
+		
+		html{
+			font-size: 62.5%;
+		}
+		.rem-em{
+			border:1px solid #ddd;
+		}
+		.rem-em li{
+			border-bottom: 1px solid #ddd;
+			margin-bottom:-1px;
+		}
+		.rem-em li:first-child{
+			font-size: 2rem;
+		}
+		.rem-em li:nth-child(2){
+			font-size: 2.2rem;
+		}
+		.rem-em li:nth-child(3){
+			font-size: 2.4rem;
+		}
+		.rem-em li:nth-child(4){
+			font-size: 3.6rem;
+		}
+
+
+		.fz-px li:first-child{
+			font-size: 20px;
+		}
+		.fz-px li:nth-child(2){
+			font-size: 22px;
+		}
+		.fz-px li:nth-child(3){
+			font-size: 24px;
+		}
+		.fz-px li:nth-child(4){
+			font-size: 26px;
+		}
+
+		@media screen and (max-width: 640px){
+			html{
+				font-size: 40%;
+			}
+		}
+
+		@media screen and (max-width: 768px) and (min-width: 640px){
+			html{
+				font-size:125%;
+			}
+		}
+		.pop-box{
+			position: relative;
+			width: 300px;
+			height: 50px;
+			border:1px solid #f00;
+		}
+		.pop-box:before,.pop-box:after{
+			position: absolute;
+			content:"";
+			width:0;
+			height:0;
+			left:50px;
+			border-width:20px;
+			border-style:solid dashed dashed dashed;
+
+		}
+		.pop-box:before{
+			bottom:-40px;
+			border-color:#f00 transparent transparent transparent;
+		}
+		.pop-box:after{
+			left:50px;
+			bottom:-39px;
+			border-color:#fff transparent transparent transparent;
+		}
+body{
+        margin:0;
+        padding:0;
+        min-width:600px;
+    }
+    
+    .bigg{
+　　　　width: 500px;
+　　　　height: 500px;
+　　　　border: 1px solid red;
+　　　　position: relative;
+　　}
+　　.small1{
+　　　　width: 200px; 
+　　　　height: 200px;
+　　　　position:absolute;left:0px;top:0px;right:0px;bottom:0px;
+　　　　margin: auto;
+　　　　background-color:#f00;
+    }
+
+    .resize{
+    	resize:both;
+    	overflow: hidden;	/*resize要结合overflow一起使用才有效果*/
+    }
+    .sheight{height:100%;overflow: hidden;}
+    .drop-shadow {
+    width: 300px;
+    height: 150px;
+    position: relative;
+    background: #ccc;
+    margin-left: 100px;
+  }
+  .drop-shadow:before,
+  .drop-shadow:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    max-width: 150px;
+    height: 20%;
+    /*add box-shadow*/
+    -webkit-box-shadow: 0 15px 10px rgba(125,125,125,0.8);
+    -moz-box-shadow: 0 15px 10px rgba(125,125,125,0.8);
+    box-shadow: 0 15px 10px rgba(125,125,125,0.8);
+    /*add css3 transform*/
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    -o-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+  }
+ .drop-shadow:after {
+    right:10px;
+    left: auto;
+    -webkit-transform:rotate(3deg);
+    -moz-transform:rotate(3deg);
+    -o-transform:rotate(3deg);
+    transform:rotate(3deg);
+    width: 30px;
+ }
+ .animate{
+ 	position: relative;
+ 	color:#f00;
+ 	display: inline-block;
+ 	padding: 10px;
+ 	text-decoration: none;
+ 	font-size: 16px;
+ }
+ .animate:after {
+	position: absolute;
+	content: "";
+	bottom: 0;
+	left: 50%;
+	right: 50%;
+ }
+ .animate:hover:after {
+ 	left: 8px;
+ 	right: 8px;
+ 	transition:all .2s ease-in;
+ 	border:1px solid #08c;
+ }
+</style>
+</head>
+<body>
+	<a href="javascript:;" class="animate">动画效果</a>
+	<div class="drop-shadow"></div>
+	<div class="pop-box"></div>
+	
+	<ul class="rem-em">
+		<li>第一章第1节</li>
+		<li>第一章第2节</li>
+		<li>第一章第3节</li>
+		<li>第一章第4节</li>
+	</ul>
+	<ul class="fz-px">
+		<li>第一章第1节</li>
+		<li>第一章第2节</li>
+		<li>第一章第3节</li>
+		<li>第一章第4节</li>
+		<li>第一章第5节</li>
+	</ul>
+	<p>我们都是<mark>好孩子</mark></p>
+	<canvas id="canvas" width="300" heiht="300"></canvas>
+	<div class="box">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="line-box">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="loader-inner ball-spin-fade-loader">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+
+	<div class="hover-ltr">
+		<a href="">好，很好，非常好</a>
+	</div> 
+
+	<div class="container">
+		<div class="inner">
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+			<p>我不知道</p>
+		</div>
+		<div class="bg">aaaaddddsadaf</div>
+	</div>
+	<div class="wrapper">
+		<h1>古诗三首</h1>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+		<h1>古诗三首</h1>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+		<h2>李白诗集</h2>
+	</div>
+	<span id="nowdate"></span>
+</body>
+<script type="text/javascript">
+	function getDate(){
+		var date = new Date();
+		var newdate = new Date('2016/05/14 00:00:00'); 
+		var leftTime = newdate - date;
+		var day =	  parseInt(leftTime/1000/60/60/24,10);
+		var hour =	  parseInt(leftTime/1000/60/60%24,10);
+		var minus =   parseInt(leftTime/1000/60%60,10);
+		var seconds = parseInt(leftTime/1000%60,10);
+
+		var span = document.getElementById("nowdate");
+		var dateStr =day+"天"+ hour+":"+minus+":"+seconds;
+		span.innerText = dateStr;
+	
+	}
+		window.setInterval(function(){getDate()},1000);
+</script>
+<script type="text/javascript">
+		// var canvas = document.getElementById("canvas");
+		// var context = canvas.getContext("2d");
+		// context.fillStyle="#ff0000";
+		// context.fillRect(50,40,50,80);
+
+		// context.moveTo(0,0);
+		// context.lineTo(100,100);
+		// context.lineWidth=10;
+		// context.strokeStyle="#ff0000";
+		// context.stroke();
+
+		/*context.beginPath();
+		context.arc(100,100,40,0,2*Math.PI);
+		// context.strokeStyle="red";
+		// context.stroke();	//空心圆
+		context.fillStyle="red";
+		context.fill();		//实心圆*/
+
+		//文本
+	/*	context.font="30px Airal";
+		context.fillText("我们都是好孩子",10,50);*/
+
+		//渐变
+		var gra = context.createLinearGradient(0,0,100,0);
+		gra.addColorStop(0,"red");
+		gra.addColorStop(1,"blue");
+
+		context.fillStyle=gra;
+		context.fillRect(0,0,100,50);
+
+		// var gra = context.createRadialGradient(40, 35, 0, 30, 15, 50);
+		// gra.addColorStop(0.1,"red");
+		// gra.addColorStop(0.5,"white");
+		// gra.addColorStop(1,"blue");
+
+		// context.shadowOffsetX=10;
+		// context.shadowOffsetY=10;
+		// context.shadowColor="rgba(0,0,0,.3)";
+		// context.shadowBlur=2;
+		// context.fillStyle="red";
+		// context.fillRect(0,0,100,50);
+
+		// if(window.localStorage){
+
+		// }
+		// if(window.sessionStorage){
+
+		// }
+		// if(window.applicationCache){
+
+		// }
+	</script>
+</html>

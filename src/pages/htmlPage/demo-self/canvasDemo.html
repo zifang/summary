@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewpoint" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>canvas</title>
+	<style>
+		*{margin:0;padding:0;}
+		.wrapper{text-align: center;}
+	</style>
+</head>
+<body>
+	<div class="wrapper" id="out-box">
+		<canvas id="cvs" width="900" height="700"></canvas>
+	</div>
+	<script>
+		var deg = Math.PI/180; 
+		var width = document.documentElement.clientWidth;
+		var height = document.documentElement.clientHeight;
+		var outBox = document.getElementById("out-box");
+		outBox.style.width = width + "px";
+		outBox.style.height = height + "px";
+
+
+		var canvas = document.getElementById("cvs");
+		// canvas.style.width = (width-100) + "px";
+		// canvas.style.height = (height-100) + "px";
+		var context = canvas.getContext("2d");
+		context.rotate(-180*deg);
+
+		context.beginPath();
+
+		context.clearRect(0,0,-800,-600);
+		context.fillStyle='#fafafa';
+		context.fillRect(0,0,-800,-600);
+
+		context.scale(15,15);
+		context.translate(65,70);
+		context.moveTo(-79.625,-83.44);
+		
+		context.lineTo(-79.625,-83.44);
+		context.lineTo(-79.395,-81.155);
+		context.lineTo(-74.318,-81.696);
+		context.lineTo(-74.519,-83.995);
+		context.lineTo(-75.095,-90.744);
+		context.lineTo(-68.286,-91.311);
+		context.lineTo(-68.286,-91.311);
+		context.lineTo(-66.71,-75.349);
+		context.lineTo(-73.524,-74.993);
+		context.lineTo(-74.41,-84.002);
+		context.closePath();
+
+		context.strokeStyle="#f00";
+		context.lineWidth = 0.1;
+		context.stroke(); 
+	</script>
+</body>
+</html>

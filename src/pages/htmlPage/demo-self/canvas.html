@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewpoint" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+	<title>canvas demo</title>
+	<style>
+		*{margin:0;padding:0;}
+		.wrapper{text-align: center;}
+	</style>
+</head>
+<body>
+	<div class="wrapper" id="out-box">
+		<canvas id="cvs" width="900" height="700"></canvas>
+	</div>
+	<script>
+		var width = document.documentElement.clientWidth;
+		var height = document.documentElement.clientHeight;
+		var outBox = document.getElementById("out-box");
+		outBox.style.width = width + "px";
+		outBox.style.height = height + "px";
+		var canvas = document.getElementById("cvs");
+		// canvas.style.width = (width-100) + "px";
+		// canvas.style.height = (height-100) + "px";
+
+		var context = canvas.getContext("2d");
+
+		context.beginPath();
+		context.moveTo(150,10);//从点(160,160)开始
+		context.lineTo(500,10);
+		context.lineTo(500,600);
+		context.lineTo(150,600);
+
+		context.lineTo(150,400);
+
+		context.lineTo(0,400);
+
+		context.lineTo(0,200);
+
+		context.lineTo(150,200);
+		context.lineTo(150,10);
+		context.closePath();
+		context.stroke(); 
+
+		//绘制小汽车
+		var interal = setInterval(function () {
+              move(context);
+        }, 1000);
+
+
+        var x = 100;//矩形开始坐标
+        var y = 100;//矩形结束坐标
+        var mx = 0;//0右1左
+        var my = 0; //0下1上
+        var ml = 1;//每次移动长度
+        var w = 20;//矩形宽度
+        var h = 20;//矩形高度
+        var cw = 400;//canvas宽度
+        var ch = 300; //canvas高度
+ 
+ 
+        function move(context) {
+            context.clearRect(0, 0, 400, 300);
+            context.fillStyle = "#FFFFFF";
+            context.fillRect(0, 0, 400, 300);
+            context.fillStyle = "red";
+            context.fillRect(x, y, w, h);       
+            if (mx == 0) {
+                x = x + ml;
+                if (x >= cw-w) {
+                    mx = 1;
+                }
+            }
+            else {
+                x = x - ml;
+                if (x <= 0) {
+                    mx = 0;
+                }
+            }
+            if (my == 0) {
+                y = y + ml;
+                if (y >= ch-h) {
+                    my = 1;
+                }
+            }
+            else {
+                y = y - ml;
+                if (y <= 0) {
+                    my = 0;
+                }
+            }
+          
+        }
+		// var resizeTimer = null;
+		// var img = new Image();
+		// img.src = "images/car.png";
+		// img.onload = function(){
+  //    		//1s钟移动一次
+	 // 		 if (resizeTimer) {
+	 //            clearTimeout(resizeTimer)
+	 //         }
+	 //         resizeTimer = setTimeout(function(){
+	 //        	//重置菜单高度
+	 // 			context.drawImage(img,160,350,26,52);
+
+	 //         }, 500);
+		// }
+
+	</script>
+</body>
+</html>

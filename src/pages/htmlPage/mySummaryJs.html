@@ -1,0 +1,345 @@
+<!-- 切换menu的选中状态 -->
+<div class="box">
+	<ul id="navitems">
+		<li class="curr"><a href="<c:url value="/index.shtml"/>">首页</a></li>
+		<li><a href="<c:url value="/goodsclass/buyIndex.shtml"/>">培训</a></li>
+		<li><a href="<c:url value="/examground/examList.shtml"/>">考试</a></li> 
+	</ul>
+	<script type="text/javascript">
+		$(function(){
+			var urlstr = location.href;
+			var urlstatus=false;
+			$("#menu dd .item a").each(function () {
+			   if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+			     $(this).parent().addClass('cur').siblings().removeClass("cur").parents("dl").siblings().find(".item").removeClass("cur"); 
+			     urlstatus = true;
+			   } else {
+			     $(this).parent().removeClass('cur');
+			   }
+			 });
+			 if (!urlstatus) {$("#navitems li a").eq(0).parent().addClass('cur'); }
+		});
+	</script>
+</div>
+
+<!-- 页面常用的表单技巧 -->
+<script type="text/javascript">
+	//只能输入数字和小数点
+	var reg = new RegExp('^\\d+(\\.\\d+)?$');
+	//拆分字符 split
+	currentDate.split("-")[0];
+	//标签的替换 把plan替换成空，也就是删掉
+	elemenet.replace("plan-","");
+	//将字符串连接起来,用“，”
+	element.join(",");
+</script>
+
+<!-- js取小数、整数 -->
+<script type="text/javascript">
+	1.丢弃小数部分,保留整数部分
+	parseInt(5/2)
+	2.向上取整,有小数就整数部分加1
+	 Math.ceil(5/2) ===3
+	3,四舍五入.
+	Math.round(5/2)
+	4,向下取整
+	 Math.floor(5/2)   ===2
+	Math 对象的方法
+	FF: Firefox, N: Netscape, IE: Internet Explorer
+	方法 描述 FF N IE
+	abs(x) 返回数的绝对值 1 2 3
+	acos(x) 返回数的反余弦值 1 2 3
+	asin(x) 返回数的反正弦值 1 2 3
+	atan(x) 以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值 1 2 3
+	atan2(y,x) 返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间） 1 2 3
+	ceil(x) 对一个数进行上舍入。 1 2 3
+	cos(x) 返回数的余弦 1 2 3
+	exp(x) 返回 e 的指数。 1 2 3
+	floor(x) 对一个数进行下舍入。 1 2 3
+	log(x) 返回数的自然对数（底为e） 1 2 3
+	max(x,y) 返回 x 和 y 中的最高值 1 2 3
+	min(x,y) 返回 x 和 y 中的最低值 1 2 3
+	pow(x,y) 返回 x 的 y 次幂 1 2 3
+	random() 返回 0 ~ 1 之间的随机数 1 2 3
+	round(x) 把一个数四舍五入为最接近的整数 1 2 3
+	sin(x) 返回数的正弦 1 2 3
+	sqrt(x) 返回数的平方根 1 2 3
+	tan(x) 返回一个角的正切 1 2 3
+	toSource() 代表对象的源代码 1 4 -
+	valueOf() 返回一个 Math 对象的原始值
+</script>
+
+<!-- 回车事件 -->
+<script type="text/javascript">
+	//回车事件
+	$('#s_coach').keydown(function(e){
+		if(e.keyCode==13){
+			//todo
+		}
+	});
+</script>
+
+<!-- 获取URL中的参数 -->
+<script type="text/javascript">
+	function getParameterByName(name) {
+	      var match = RegExp('[?&]' + name + '=([^&]*)')
+	                      .exec(window.location.search);
+	      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	}
+</script>
+
+<!-- js去除空格函数(左右两侧) -->
+<script type="text/javascript">
+	String.prototype.trim = function(){return this.replace(/^\s+|\s+$/g, "");};
+	// 或者
+	replace(/(^\s*)|(\s*$)/g, "")
+</script>
+
+<!-- 阴影效果的实现方法，两边阴影 -->
+<style type="text/css">
+	.element-bottomshadow:before, .element-bottomshadow:after {
+        bottom: 15px;
+        box-shadow: 0 17px 10px rgba(0, 0, 0, 0.7);
+        content: "";
+        height: 20%;
+        left: 10px;
+        max-height: 100px;
+        max-width: 460px;
+        opacity: 0.7;
+        position: absolute;
+        transform: rotate(-3deg);
+        width: 60%;
+        z-index: -1;
+    }
+    /*检测IE*/
+    #warning-ie{background:#f7cd69;border-bottom:#eb9e3a solid 1px;height:39px;line-height:39px;text-align:center;color:#3d3d3d;font-size:14px;}
+    #warning-ie a{color:#3bafda}
+
+    /*opacity*/
+    .select{
+        opacity: 1;
+        -webkit-opacity:1;
+        -moz-opacity:1;/*为了支持老版本的火狐*/
+        -khtml-opacity:1;/*为了支持老版本的safari浏览器*/
+        filter:alpha(opacity=100);/*ie*/
+    }
+</style>
+
+<!-- json类型数据转换的方式 -->
+<script type="text/javascript">
+	// 插件的方式
+	$.parseJSON( jsonstr );
+	//浏览器支持的方式
+	JSON.parse(jsonstr); //可以将json字符串转换成json对象 
+	JSON.stringify(jsonobj); //可以将json对象转换成json对符串
+	// 注意:ie7和ie6没有JSON对象，推荐采用JSON官方的方式，引入json.js。
+	//js的方式
+	eval('(' + jsonstr + ')');
+	//注意：
+	四.JSON官方的转换方式:
+	http://www.json.org/提供了一个json.js,这样ie8(兼容模式),ie7和ie6就可以支持JSON对象以及其stringify()和parse()方法； 
+	可以在https://github.com/douglascrockford/JSON-js上获取到这个js，一般现在用json2.js。
+	原文地址是:http://www.51texiao.cn/javascriptjiaocheng/2015/0508/1062.html
+	最为原始地址是:http://www.softwhy.com/forum.php?mod=viewthread&tid=8237
+</script>
+
+<!-- keyup重复提交事件的解决方案 -->
+<script type="text/javascript">
+	var last;
+	$("#element").keyup(function(event){
+		last = event.timeStamp;//利用event的timeStamp来标记时间，这样每次的keyup事件都会修改last的值，注意last必需为全局变量
+		setTimeout(function(){    //设时延迟0.5s执行
+		if(last-event.timeStamp==0){//如果时间差为0（也就是你停止输入0.5s之内都没有其它的keyup事件发生）则做你想要做的事
+			
+		},500);
+	});
+
+	onkeyup="this.value=this.value.replace(/[^0-9xX]/g,'')"
+	$("#signer_photo_path").attr("src","data:image/jpeg;base64,"+data['em'].signatureContent);
+	//获取连接传递的参数
+	 function getQueryString(name) { 
+		  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+		  var r = window.location.search.substr(1).match(reg); 
+		  if (r != null) return unescape(r[2]); return null; 
+	  } 
+</script>
+<script type="text/javascript">
+	//处理android，，input输入框不随键盘滚动的情况
+	if(/Android [4-6]/.test(navigator.appVersion)) {
+	    window.addEventListener("resize", function() {
+	        if(document.activeElement.tagName=="INPUT" || document.activeElement.tagName=="TEXTAREA") {
+	            window.setTimeout(function() {
+	                document.activeElement.scrollIntoViewIfNeeded();
+	            },0);
+	        }
+	    })
+	}
+
+</script>
+
+
+<!-- //scrollTop能力检测函数 -->
+<script>
+	function get_scrollTop_of_body(){
+		var scrollTop; 
+		if(typeof window.pageYOffset != 'undefined'){ 
+		scrollTop = window.pageYOffset; 
+		} 
+		else 
+		if(typeof document.compatMode != 'undefined' && 
+		document.compatMode != 'BackCompat'){ 
+		scrollTop = document.documentElement.scrollTop; 
+		} 
+		else 
+		if(typeof document.body != 'undefined'){ 
+		scrollTop = document.body.scrollTop; 
+		} 
+		return scrollTop; 
+	}
+</script>
+
+<!-- 回到顶部事件 -->
+<!-- 鼠标滚动事件 -->
+<script>
+	$("#topUp").click(function(){
+		$('body,html').animate({
+			scrollTop:0,
+		},1000
+		);
+	});
+	
+	//鼠标滚动事件
+	$(window).scroll(function(){
+		if($(window).scrollTop() > 235){
+			$("#subs-number").css("top",($(window).scrollTop()-150)+"px");
+			$(".toTop").show();
+		}else{
+			$("#subs-number").css("top","60px");
+			$(".toTop").hide();
+		}
+	});
+
+	//当窗体滚动到一定位置，出现动画
+	$(window).bind('scroll resize',	function(e) {
+		var stop = getScrollTop();
+		if (stop > 100) {
+			$("#core-task").addClass("task")
+		}
+		if (stop > 600) {
+			$("#core-cooperate").addClass("cooperate");
+		}
+		if (stop > 1120) {
+			$("#core-approval").addClass("approval")
+		}
+		if (stop > 1640) {
+			$("#core-device").addClass("device")
+		}
+		if (stop > 2200) {
+			$("#core-version").addClass("version")
+		}
+		if (stop > 2500) {
+			$("#core-client").addClass("client")
+		}
+	});
+</script>
+
+<!-- 鼠标浮上离开时的事件处理 -->
+<script type="text/javascript">
+	var setTime,
+	$_menuBox=$(".menu-list-box");
+	$(".menu-dropdown").mouseenter(function () {
+		var $this = $(this);
+		setTime = setTimeout(function () {
+		    $_menuBox.show();
+		    $_menuBox.parent().find(".icon").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+		}, 100);
+	}).mouseleave(function () {
+		clearTimeout(setTime);
+		$_menuBox.hide();
+		$_menuBox.parent().find(".icon").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+	});
+</script>
+
+<!-- 获取URL中的参数 -->
+<script type="text/javascript">
+	function getParameterByName(name) { 
+		var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search); 
+		return match && decodeURIComponent(match[1].replace(/\+/g, ' ')); 
+	}
+	// 方法二
+	//获取连接传递的参数
+	function getQueryString(name) { 
+	   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+	   if(window.location.search.indexOf(name)<0) return null;
+	   var r = window.location.search.substr(1).match(reg); 
+	   if (r != null) return unescape(r[2]); return null; 
+	} 
+</script>
+<!-- 数组 -->
+<script type="text/javascript">
+// 合并两个数组，并去重
+	Array.prototype.unique = function() { 
+		var a = this.concat(); 
+		for(var i=0; i<a.length; ++i) {
+			for(var j=i+1; j<a.length; ++j) {
+				if(a[i] === a[j]) a.splice(j, 1); 
+			} 
+		} return a; }; 
+		//Demo var array1 = ["a","b"]; 
+		//var array2 = ["b", "c"]; 
+		//var array3 = array1.concat(array2).unique(); // ["a","b","c"]
+	// 取数组中的最大值和最小值
+	var arr = new Array(); 
+	arr[0] = 100; 
+	arr[1] = 0; 
+	arr[2] = 50; 
+	var min = Math.min.apply(null, arr), 
+	max = Math.max.apply(null, arr);
+</script>
+<!-- 跳出双重循环 -->
+<script type="text/javascript">
+	function foo () { 
+		dance: for(var k = 0; k < 4; k++){ 
+			for(var m = 0; m < 4; m++){ 
+				if(m == 2){ 
+					break dance; 
+				} 
+			} 
+		} 
+	}
+</script>
+
+<!-- 判断是android还是ios -->
+<script>
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端	
+</script>
+<!-- 判断是android还是ios -->
+<script type="text/javascript">
+	var browser = {
+		versions: function() {
+			var u = navigator.userAgent, app = navigator.appVersion;
+			return {
+			trident: u.indexOf('Trident') > -1, //IE内核
+			presto: u.indexOf('Presto') > -1, //opera内核
+			webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+			ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+			iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+			iPad: u.indexOf('iPad') > -1, //是否iPad
+			webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+			};
+		}(),
+		language: (navigator.browserLanguage || navigator.language).toLowerCase()
+	}
+
+	if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
+		alert('我是IOS！');
+	}
+	else if (browser.versions.android) {
+		alert('我是安卓！');
+	}
+</script>
