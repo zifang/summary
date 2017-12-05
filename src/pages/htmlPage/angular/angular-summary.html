@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>demo</title>
+	<title>summary</title>
 </head>
 <body ng-app="test">
 	<div ng-controller="testCtrl">
@@ -66,6 +66,41 @@
 		<br>
 		<a href="#/demo/aboutus">关于我们</a>
 		<div ng-view></div>
+		<p>ui-router 路由跳转,参数获取：</p>
+		<p>$state.go()</p>
+		<p>$state.go(url,{params})</p>
+		<p>&lt;a ui-sref="">&lt;/a&gt;</p>
+		<p>$stateParams.params获取参数，用 url: "/detail/:t",设置参数</p>
+
+		<section>
+			<h3>angularjs-ui-bootstarp的使用</h3>
+			<p>
+				install angular-ui-bootstrap <br>
+				import 'angular-ui-bootstrap'; <br>
+				注入：ui.bootstrap <br>
+				官网：http://angular-ui.github.io/bootstrap/
+			</p>
+		</section>
+
+		<section>
+			<h3>文件上传</h3>
+			<p>
+				install ng-file-upload <br>
+				import 'ng-file-upload'; <br>
+				注入：ngFileUpload <br>
+				用法:
+			</p>
+		</section>
+		<section>
+			<h3>弹框</h3>
+			<p>
+				install ng-dialog <br>
+				import 'ng-dialog'; <br>
+				引入样式 import '../node_modules/ng-dialog/css/ngDialog.min.css'; <br>
+				import '../node_modules/ng-dialog/css/ngDialog-theme-default.min.css'; <br>
+ 				注入： ngDialog
+			</p>
+		</section>
 	</div>
 </body>
 <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
