@@ -13,6 +13,7 @@
       <el-menu-item index="6">Git</el-menu-item>
       <el-menu-item index="7">Vue</el-menu-item>
       <el-menu-item index="8">webpack</el-menu-item>
+      <el-menu-item index="9">常用插件</el-menu-item>
     </el-menu>
     <components class="content" :is="currentView"></components>
     <scroll-top></scroll-top>
@@ -63,6 +64,10 @@
           })
         } else if (key === '8') {
           import('@/pages/webpack/webpack.vue').then(text => {
+            this.currentView = text.default
+          })
+        } else if (key === '9') {
+          import('@/pages/plugins/plugins.vue').then(text => {
             this.currentView = text.default
           })
         }
