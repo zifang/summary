@@ -56,7 +56,6 @@
 		<a>http://stackoverflow.com/</a>
 		<a>http://www.oschina.net/</a>
 		<a>http://www.dowebok.com/</a>
-		<a>http://www.css119.com</a>
 		<a>http://www.w3cfuns.com</a>
 		<a>http://www.yangsongmao.com/</a>
 		<a>https://github.com/</a>
