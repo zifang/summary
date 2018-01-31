@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     showAlert () {
-      alert("3")
+      alert('3')
     },
     changeImg () {
       let imgObj = this.$refs.imgs
