@@ -30,11 +30,17 @@ function getFinanceTableChart(ec) {
      //定义图表options
      var statusOption = {
       title : {
-          text: '业务统计',
-          x:'left'
+        text: '业务统计',
+        x:'left'
       },
       tooltip : {
-          trigger: 'axis'
+        trigger: 'axis'
+      },
+      grid:{
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 0
       },
       legend: {
           data:['报名费','培训费','其他','加油费','维修费','报名退费','培训退费'],

@@ -67,10 +67,13 @@
 		<a>素材公社：http://www.tooopen.com/</a>
 		<a>花瓣：http://huaban.com/</a>
 		<a>http://68design.net/</a>
+		<a>ps联盟：https://www.68ps.com/</a>
 		<a>全景：http://editorial.quanjing.com/</a>
 		<a>站酷：http://www.zcool.com.cn/</a>
 		<a>昵图网：http://login.nipic.com/</a>
 		<a>懒人网站：http://www.lanrentuku.com/</a>
+		<!-- 图片压缩 -->
+		<a href="https://tinypng.com/">图片压缩：https://tinypng.com/</a>
 		<!-- 设计 -->
 		<span class="title-dis">设计</span>
 		<a>https://dribbble.com/</a>
