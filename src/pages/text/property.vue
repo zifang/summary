@@ -193,13 +193,6 @@
       } 
     });
 
-    
-    css-loader:在页面中以import或者require的形式引入css文件
-    安装less: less,less-loader
-    安装stylus: stylus,stylus-loader
-    安装sass: sass,sass-loader,node-sass
-
-
     node项目的部署安装
     和生产环境一样，需要安装pm2
     npm install pm2 -g
@@ -207,5 +200,10 @@
     pm2 list  列出启动的项目
     pm2 stop www（项目名称）  停止启动的项目
     pm2 delete  www 删除项目
+
+
+
+    1、有些事情，只要你努力的去做了，不管结果怎样，都应该释怀不是吗
+    2、永远不要相信所谓的等你做好了，怎么怎么滴，要相信握在自己手里的，才是自己的
   </code></pre></div>
 </template>

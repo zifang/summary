@@ -8,6 +8,22 @@
       安装less: less,less-loader
       安装stylus: stylus,stylus-loader
       安装sass: sass,sass-loader,node-sass
+
+      export default cutImg;
+      import filters from './filters' //将全部过滤器放在 filters/index.js 中便于管理
+      //技巧 同时 use 多个插件 被依赖的插件应放在偏后方
+      Vue.use(VueAxios, axios, vuex)
+      // 注册全局过滤器
+      filters(Vue)
+
+      inheritAttrs:false
+      这个属性，如果子组件接收了，$attrs里面就不存在改值了，
+      如果没有接受，则父组件传过来的值在$attrs里面可以拿到
+      demo,如下
+
+      // vuex
+      vuex dispatch 异步
+      vuex commit 同步
     </code></pre>
     <section>
       <h3>vue常见路由使用方式</h3>
