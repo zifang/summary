@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+ 	<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="full-screen" content="yes">
+	<title>《个人现金帐户开户表格》</title>
+	<style type="text/css">
+		body,p,h3,table,th,td,div,ul,li{margin:0;padding:0;}
+		body{color:#333;font-family: SimSun;}
+		.profile{width:675px;margin:0 auto;font-size:14px;}
+		.profile table{border-collapse: collapse;width:100%;margin-bottom:10px;}
+		.profile table.table-pad th,
+		.profile table.table-pad td{padding: 0 5px;font-size:14px;height:32px;line-height:32px;word-break:break-word;}
+		.profile table.table-noPad th,
+		.profile table.table-noPad td{padding:0;line-height: 28px;height:28px;}
+		.profile table.table-noPad.two-td th,
+		.profile table.table-noPad.two-td td{padding:0;line-height: 25px;height:25px;}
+
+		.profile table.table-pad td .text{padding-left:30px;}
+		.profile table.table-pad th{font-weight:normal;text-align:left;}
+		.profile ol li{line-height:28px;}
+		.span-bot{display:inline-block;width:40%;border-bottom:1px solid #333;}
+		.header-text{font-size:14px;color:#000;line-height:22px;}
+		.td-title{font-size:16px;height:33px;line-height: 33px;}
+		.footer{margin:10px 0 5px 0;font-size:14px;}
+	</style>
+</head>
+<body>
+	<div class="profile">
+		<div class="header">
+			<div >
+				<div>
+					<img src="data:image/png;base64,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">
+				</div>
+				<div class="header-text" style="font-size:14px;color:#000;margin-bottom:10px;">
+					<p>嘉银证券有限公司 中央编号: AFW106</p>
+					<p>香港中环皇后大道中9号16楼 1605室</p>
+					<p>电话 : (852) 3977 0900</p>
+					<p>传真 : (852) 3580 1884 </p>
+				</div>
+			</div>
+		</div>
+		<p style="font-size:26px;margin-bottom:25px;margin-top:20px;">个人现金帐户开户表格</p>
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr><td colspan="2" class="td-title">个人资料</td></tr>
+				<tr>
+					<td width="50%">中文姓名 <span id="name" class="text"></span></td>
+					<td width="50%">英文姓名/姓名拼音 <span id="realnamePinyin" class="text"></span></td>
+				</tr>	
+				<tr>
+					<td width="50%">性别 <span class="text">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 男</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 女</span></td>
+					<td width="50%">国籍<span id="nationality" class="text"></span></td>
+				</tr>	
+				<tr>
+					<td colspan="2">身份证/护照号码及其签发国家<span id="country" class="text"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2">出生日期(年/月/日)<span id="birthday" class="text"></span></td>
+				</tr>
+				<tr>
+					<td id="educationLevel" colspan="2">教育程度<span class="text">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 硕士及以上</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 本科</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 专科</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 高中</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 初中及以下</span></td>
+				</tr>	
+				<tr>
+					<td colspan="2">联络电话号码 (国家/地区编号 + 号码)<span id="phone" class="text"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2">住宅地址[身份验证-地址](中央邮箱不接受为住宅地址。)<span id="address" class="text"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2">通讯地址<span id="mailingAddress" class="text"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2">电邮地址<span id="email" class="text"></span></td>
+				</tr>	
+				<tr>
+					<td colspan="2" id="statementFor">结单收取方式<span class="text">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 电邮</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 邮寄 (会收取每月50元港币行政费)</span></td>
+				</tr>
+			</tbody>
+		</table>	
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr><td colspan="2" class="td-title">就业状况</td></tr>
+				<tr>
+					<td colspan="2">工作状况<span class="text">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 受雇</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 自雇</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 家庭主妇</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 退休</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 学生</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 失业</span></td>
+				<tr>
+					<td width="50%"><span>雇主名称<span id="company" class="text"></span></td>
+					<td width="50%">职位<span id="position" class="text"></span></td>
+				</tr>	
+				<tr>
+					<td colspan="2">
+						<table class="table-pad" style="margin-bottom:0;">
+							<tr>
+								<td width="20%">业务性质</td>
+								<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 计算机/互联网/通信/电子<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 会计/金融/银行/保险
+									<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 制药/医疗
+									<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 房地产/建筑
+									<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 专业服务/教育/培训
+								</td>
+								<td>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 服务业<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 贸易/消费/制造/营运<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 政府<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 非盈利机构<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 其他 (请注明):
+								</td>
+								<td>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 物流/运输<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 能源/原材料<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 广告/媒体<br>
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 农/林/牧/渔 <br>
+									&nbsp;&nbsp;
+								</td>
+							</tr>
+					</table></td>
+				</tr>
+				<tr>
+					<td colspan="2">任职年期<span class="text">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 少于2年</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 2-5年</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 6-10年</span>
+						<span class="text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 多于10年</span></td>
+				</tr>
+				<tr>
+					<td colspan="2">营业/办公室地址<span id="companyAddress" class="text"></span></td>
+				</tr>	
+			</tbody>
+		</table>	
+		<div class="footer">
+			<table>
+				<tr>
+					<td align="left">www.jiayin95.com</td>
+					<td align="center">1/4</td>
+					<td align="right">Acct.No.1169953</td>
+				</tr>
+			</table>
+		</div>
+		<div class="header">
+			<div >
+				<div>
+					<img src="data:image/png;base64,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">
+				</div>
+			</div>
+		</div>
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr>
+					<td colspan="2" class="td-title">财政状况</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr>
+									<td width="20%">资金及财富来源</td>
+									<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 薪金<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 退休金
+									</td>
+									<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 佣金<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 投资回报
+									</td>
+									<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 业务收入<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 遗产
+									</td>
+									<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 租金<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 储蓄
+									</td>
+									<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 股息/利息 <br> &nbsp;&nbsp;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr>
+									<td width="20%">每年收入 (人民币)
+									<td width="15%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> ≤ 250,000
+									</td>
+									<td width="20%"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 250,001-500,000
+									</td>
+									<td width="22%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 500,001-1,000,000
+									</td>
+									<td width="23%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> >1,000,000
+									</td>
+								</tr>
+							</tbody>
+						</table>
+				</tr>	
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr>
+									<td width="20%">资产净值 (人民币)</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> ≤ 500,000<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> >8,000,000
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 500,001-1,000,000<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> >3,000,001-8,000,000
+									</td>
+									<td width="30%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 1,000,001-3,000,000 <br> &nbsp;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>	
+			</tbody>
+		</table>	
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr>
+					<td colspan="2" class="td-title">直接促销 (请参阅个人资料声明)</td>
+				</tr>
+				<tr>
+					<td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 本人明确地同意嘉银可根据个人资料声明所载使用本人之个人资料作任何促销，包括研究报告及特别优惠等。</td>
+				</tr>		
+				<tr>
+					<td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 本人不同意嘉银使用本人之个人资料作任何促销。</td>
+				</tr>		
+			</tbody>
+		</table>	
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr>
+					<td colspan="2" class="td-title">投资目的、经验及风险承受能力</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="5">1. 阁下投资的目的</td></tr>
+								<tr>
+									<td width="20%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 资本增值
+									</td>
+									<td width="20%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 股息收入
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 投机
+									</td>
+									<td width="35%">
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 保本
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="5" style="height:38px;line-height:38px;">2. 阁下有多少年投资金融产品的经验? (金融产品指其价值可随时波动，并可跌至低于其投资本金。金融产品包括股票、债券、认股权证、期货、期权、基金、股票挂钩工具、外汇交易、商品、结构性产品等。) </td></tr>
+								<tr>
+									<td width="20%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 没有
+									</td>
+									<td width="20%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 1至3年
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 3至5年
+									</td>
+									<td width="20%">
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 5至10年
+									</td>
+									<td width="15%">
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 10年以上
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="3">3. 阁下的投资取向</td></tr>
+								<tr>
+									<td width="20%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 保守
+									</td>
+									<td width="20%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 稳健
+									</td>
+									<td width="60%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 进取
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="4">4. 阁下的投资年期</td></tr>
+								<tr>
+									<td width="25%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 少于1年 (短期)
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 1至3年之间 (中期)
+									</td>
+									<td width="50%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 多于3年 (长期)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="4">5. 阁下之预期每年交易金额 (人民币)</td></tr>
+								<tr>
+									<td width="25%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 少于500,000<br>
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 多于8,000,000
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 500,001-1,000,000<br> &nbsp;
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 1,000,001-3,000,000 <br> &nbsp;
+									</td>
+									<td width="25%">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 3,000,001-8,000,000<br> &nbsp;
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+			</tbody>
+		</table>	
+		<table class="table-pad" border="1">
+			<tbody>
+				<tr>
+					<td colspan="4" class="td-title">居留司法管辖区及税务编号或具有等同功能的识辨编号 (以下简称「税务编号」)</td>
+				</tr>
+				<tr>
+					<td>居留司法管辖区</td>
+					<td>TIN税务编码</td>
+					<td>如没有提供税务编号， 填写理由 A、B 或 C</td>
+					<td>如选取理由 B， 解释账户持有人不能取得税务编号的原因</td>
+				</tr>
+				<tr>
+					<td>(1) <span id="live-country"></span></td>
+					<td id="live-identify"></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>(2)</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>(3)</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>(4)</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>(5)</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="footer">
+			<table>
+				<tr>
+					<td align="left">www.jiayin95.com</td>
+					<td align="center">2/4</td>
+					<td align="right">Acct.No.1169953</td>
+				</tr>
+			</table>
+		</div>
+		<div class="header">
+			<div >
+				<div>
+					<img src="data:image/png;base64,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">
+				</div>
+			</div>
+		</div>
+		<table border="1" class="table-pad">
+			<tbody>
+				<tr>
+					<td colspan="4" class="td-title">客户身份披露声明</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">1. 第一项声明: 本人不是嘉银或其关联公司之代理人、雇员、董事或认可人士</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是 <br> &nbsp; <br>&nbsp;
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请提供有关公司之名称及与其之关系。
+										<br>
+										有关公司名称 : <span class="span-bot" style="width:350px;"></span> <br>
+										职位 ：<span class="span-bot" style="width:420px;"></span><br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">2. 第二项声明: 本人与嘉银或其关联公司之代理人、雇员、董事或认可人士没有亲属关系</td></tr>
+								<tr>
+									<td width="15%"style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是 <br> &nbsp; <br>&nbsp;
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请提供有关资料
+										<br>
+										公司名称 : <span class="span-bot" style="width:395px;"></span><br>
+										亲属姓名 : <span class="span-bot" style="width:395px;"></span><br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">3. 第三项声明: 本人不是任何注册/持牌金融机构之代理人、雇员、董事或认可人士</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是 <br> &nbsp; <br>&nbsp; <br>&nbsp;
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请于下列注明及提供阁下雇主就阁下于嘉银开立账户之书面同意书;而阁下同意嘉银可应阁下雇主之要  
+  					求向其提供阁下之交易确认书及/或账户结单之复本
+										<br>
+										公司名称 : <span class="span-bot" style="width:395px;"></span><br>
+										职位 : <span class="span-bot" style="width:435px;"></span><br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">4. 第四项声明: 本人不是任何上市公司主要股东、高级管理人员或董事? (主要股东指任何人士可控制或可使控制行使任何上市公司10%或以上之表决权。)</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是 <br> &nbsp; <br>&nbsp; <br>&nbsp;
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请提供有关资料
+										<br>
+										上市公司名称 : <span class="span-bot" style="width:355px;"></span><br>
+										证券编号 : <span class="span-bot" style="width:395px;"></span><br>
+										职位 : <span class="span-bot" style="width:435px;"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">5. 第五项声明:  本人是此账户进行交易之最终负责发出指示人士、最终受益人士及承担风险人士</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是 <br> &nbsp; <br>&nbsp; <br>&nbsp; <br>&nbsp; <br>&nbsp;
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请于下方提供该人士资料
+										<br>
+										该人士姓名 : <span class="span-bot" style="width:375px;"></span><br>
+										身份证/护照号码及其签发国家 : <span class="span-bot" style="width:255px;"></span><br>
+										地址 : <span class="span-bot" style="width:415px;"></span> <br>
+										与阁下之关系 : <span class="span-bot" style="width:355px;"></span> <br>
+										联络电话号码 : <span class="span-bot" style="width:355px;"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">6. 第六项声明: 本人或本人直系亲属不是任何国家之政治人物</td></tr>
+								<tr><td colspan="2" style="padding-left:24px;">
+									政治人物界定为：
+									(a)包括国家元首、政府首长、资深从政者、高级政府、司法或军事官员、国有企业高级行政人员及重要政党干事(但不包括任何类别的中级或更低级官员﹔<br>
+									(b)上文(a)段所指的个人的配偶、伴侣、子女或父母，或该名个人的子女的配偶或伴侣﹔<br>
+									(c)与(a)段所指的个人关系密切的人</td>
+								</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否，请注明
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="2">
+						<table class="table-noPad two-td" style="margin-bottom:0;">
+							<tbody>
+								<tr><td colspan="2">7. 第七项声明:  本人不是美国公民、居民或税务居民</td></tr>
+								<tr>
+									<td width="15%" style="padding-left:24px;">
+										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAVFBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMtLS2hoaEzMzMzMzMzMzMnJyczMzMtLS0zMzMtLS0zMzMzMzMzMzMnJyeIiIgzMzOhoaEzMzMzMzMzMzMzMzPv4WtpAAAAG3RSTlMAnIThq2NSTAn38u7u0bWPjnhvalpUMCoiGA/XxXyxAAAAS0lEQVQI102LVw4AIQgFsW/v/d3/nosxivMxTAJQxVn1Mkmr/pVGKD3Dsi+1sVd0Dw8NaPJRkR2wBuZL5w6My8++xdhQJgwHCXda/NdZAxz21he9AAAAAElFTkSuQmCC"> 是
+									</td>
+									<td>
+										 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMBAMAAACkW0HUAAAAG1BMVEX///8AAADAwMBlZWXLy8tra2tMTEyRkZEoKCh6dsueAAAAJUlEQVQI12MQBAMGCWMgSGQQZQACRwZhEKVIBAXTIKYEBIVQwwDWWQUF5EQz0gAAAABJRU5ErkJggg=="> 否 (嘉银暂不接受美国公民、居民或税务居民为客户。)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>		
+			</tbody>
+		</table>	
+		<div class="footer">
+			<table>
+				<tr>
+					<td align="left">www.jiayin95.com</td>
+					<td align="center">3/4</td>
+					<td align="right">Acct.No.1169953</td>
+				</tr>
+			</table>
+		</div>
+	  <div class="header">
+			<div >
+				<div>
+					<img src="data:image/png;base64,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">
+				</div>
+			</div>
+		</div>
+		<table class="table-pad" border="1">
+			<tbody>
+				<tr>
+					<td class="td-title">客户声明及确认</td>
+				</tr>
+				<tr>
+					<td style="height:34px;line-height:34px;padding:2px 15px;">
+						本人声明、承认、确认并同意: <br>
+						<ol style="padding-left:0;margin-top:0;list-style:none;">
+							<li>1.此账户开户表格及相关账户开户文件所载的资料及陈述乃真实、完整及正确，除非嘉银接获本人发出关于任何变更的书面通知，否则嘉银有权就一切目的全面信赖该等资料及陈述。嘉银获授权随时联络任何人士，包括银行或任何信用调查机构，以查核此账户开户表格所提供之资料。</li>
+							<li>2.本人同意与嘉银开立此账户。本人明白递交此账户开户表格及相关账户开户文件，以及嘉银接纳此开户申请并非意味着嘉银表示同意开立账户予本人。嘉银保留无条件拒绝本人开户申请之权力。</li>
+							<li>3.本人确认嘉银已就本人所选择之语言向本人提供《客户协议》及风险披露声明。</li>
+							<li>4.此账户及嘉银提供之服务均须受此账户开户表格并受嘉银不时修订的《客户协议》(合称「协议书」)所约束。本人确认本人已阅读和明白协议书，并同意受协议书目前所列的条款及条件所约束。</li>
+							<li>5.本人确认嘉银已邀请本人细阅《客户协议》内之风险披露声明、提出问题及征求独立的意见(如本人/吾等有此意愿)。</li>
+							<li>6.本人确认本人已阅读、理解并同意接受及遵守《客户协议》内之个人资料声明。 </li>
+							<li>7.本人在各方面不受限制地拥有签订协议书的全部权力和授权，而本协议书已由本人正式认可、签订和交付，构成本人合法、有效和具约束力的义务，且没有违反本人受之约束的任何组织性文件和协议。</li>
+							<li>8.本人明白美国公民、居民或税务居民的定义。</li>
+							<li>9.本人同意嘉银可根据《海外账户税收合规法案》或依其制定的法律、法规、协议或监管指引或指示规定的要求报告本人的资料予监管机构及从本人的账户预扣付款。</li>
+							<li>10.如本人未能准确及完整地提供嘉银所需要的资料和/或文件，本人特此同意嘉银可把本人分类为不合作的账户持有人，并暂停、罢免或终止本人的账户以及本人所得的服务。</li>
+							<li>11.本人确认本人已收取及同意嘉银的佣金及收费表。</li>
+							<li>12.如此账户开户表格及相关账户开户文件中、英文版本之解释或意思有任何歧义，概以英文版本为准。</li>
+							<li>13.本人知悉及同意，嘉银可根据《税务条例》(第112 章) 有关交换财务帐户数据的法律条文，(a) 收集本表格所载数据并可备存作自动交换财务帐户数据用途及(b) 把该等资料和关于帐户持有人及任何须申报帐户的资料向香港特别行政区政府税务局申报，从而把资料转交到帐户持有人的居留司法管辖区的税务当局，并会在情况发生改变后 30 日内，向嘉银提交一份已适当更新的自我证明表格。</li>
+						</ol>
+						本人确认并同意以上内容。
+					</td>
+				</tr>
+				<tr>
+					<td>客户签署 (为签署式样) <span class="text"><img src="" id="autographPic"></span></td>
+				</tr>
+				<tr>
+					<td style="height:60px;line-height:60px;">日期：<span class="text"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="footer">
+			<table>
+				<tr>
+					<td align="left">www.jiayin95.com</td>
+					<td align="center">4/4</td>
+					<td align="right">Acct.No.1169953</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

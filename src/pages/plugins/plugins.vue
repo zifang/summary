@@ -82,6 +82,28 @@
 			});
 			return false;
 		}
+		<strong style="color:#F56C6C">腾讯播放器的使用注意事项</strong>
+		引入直播和点播的api
+		1、直播h5只支持hls格式及http开头的m3u8格式文件
+		2、点播的可以设置操作按钮是否显示
+		3、实例如liveVideo.jsp和orderVideo.jsp文件
+		<strong style="color:#F56C6C">友盟埋点注意事项</strong>
+		使用web埋点方式，创建网址，引入js文件
+		&lt;script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273441761'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1273441761' type='text/javascript'%3E%3C/script%3E"));</script>
+		&lt;script>
+			//声明_czc对象:
+			var _czc = _czc || [];
+			//绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+			_czc.push(["_setAccount", "1273441761"]);
+			//给按钮添加事件
+			_czc.push(["_trackEvent","嘉银港股","立即开户","","","openAccount"]);
+		&lt;/script>
+		<strong style="color:#F56C6C">html转pdf注意事项</strong>
+		1、font字体要求是 font-family: SimSun;
+		2、尺寸大小不能按照网上所说的，可以设置成675px;
+		3、style标签内的样式可以起作用;
+		4、不能使用图片，可以使用base64格式显示图片，路径形式的图片打印不出来;
+		5、实例如2018-05-09openAccount1.pdf和print.html;
 	</code></pre></div>
 </template>
 <script>
