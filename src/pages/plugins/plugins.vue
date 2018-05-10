@@ -63,6 +63,7 @@
 		}	
 		注意事项：
 		后台返回的数据和ztree的数据不一致的时候，可以通过data来配置的如上所示：children对应后台返回的子集合，idKey是子id，pIdkey是父id
+		拖拽功能如columnManagement.jsp所示
 		<strong style="color:#F56C6C">jquery.form.js表单插件</strong>
 		异步上传图片：
 		&lt;form id="importForm" class="form-horizontal" action="${ctx}/scm-api/file/upload" method="post" enctype="multipart/form-data">
