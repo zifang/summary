@@ -49,7 +49,17 @@
         }
         $router.replace({path:`/orderDetail`,query:{sign:'pay'}}
         $route.query.orderId取参数
-
+        注意：：vue打包静态资源图片找不到的时候，在utils.js中添加代码
+        if (options.extract) {
+          return ExtractTextPlugin.extract({
+            use: loaders,
+            fallback: 'vue-style-loader',
+            publicPath: '../../'
+          })
+        } else {
+          return ['vue-style-loader'].concat(loaders)
+        }
+        就可以搞定
       </code></pre>
     </section>
     <section>
