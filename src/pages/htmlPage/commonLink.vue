@@ -21,8 +21,6 @@
 		<a>http://www.kuqin.com/shuoit/20140424/339433.html</a>
 		gulp环境配置
 		<a>https://segmentfault.com/a/1190000004138375?_ea=503865</a>
-		文档地址
-		<a>http://192.168.19.7:9099/login.action;jsessionid=A6E6CB177AA401210DAE7B2B65A33318?os_destination=%2Fpages%2Fviewpage.action%3FpageId%3D1830276</a>
 		img.cur{cursor:url(http://images.lvyou168.cn/images/bignext.png), url("http://images.lvyou168.cn/images/next.cur"),auto;}
 		<a>https://github.com/yangxiaopingios/wx-recognition.git</a>
 		微信开方平台语义理解
