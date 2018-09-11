@@ -11,6 +11,6 @@ export default {
 </script>
 
 <style lang="sass">
-@import 'style/reset.scss';
-@import 'style/main.scss';
+  @import 'style/reset.scss'
+  @import 'style/main.scss'
 </style>

@@ -4,6 +4,7 @@ import './vueFilter.js'
 // 将请求服务化
 import userService from './service/userService.js'
 const SUCCESS = 200
+// import mixs from 'mixs'
 export default {
   data () {
     return {
@@ -21,9 +22,13 @@ export default {
       }
     }
   },
+  //  混淆
+  // mixins: [mixs],
+  //  组件
   components: {
     'vue-core-image-upload': VueCoreImageUpload
   },
+  //  方法
   methods: {
     methods: {
       // 裁剪一定尺寸的图片
@@ -70,6 +75,23 @@ export default {
       } else {
         item.checked = !item.checked
       }
+    }
+  },
+  // <template>
+  //   <ul>
+  //     <li v-for="(visit, index) in visits" :key="index"><i>{{ visit.date | hours }}</i> - {{ visit.path }}</li>
+  //   </ul>
+  // </template>
+  //  过滤
+  filters: {
+    hours (date) {
+      return date.split('T')[1].split('.')[0]
+    }
+  },
+  //  计算
+  computed: {
+    visits () {
+      return this.$store.state.visits.slice().reverse()
     }
   }
 }
