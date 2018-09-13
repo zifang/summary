@@ -23,9 +23,9 @@ module.exports = {
     },
     proxy: {
       "/scs-api": {
-        target: "http://t1-scs.jiayin95.net/scm-web/scs-api",
+        target: "http://t1-scs.jiayin95.net/scm-web",
         pathRewrite: {
-          "^/scs-api": ""
+          "^/scs-api": "/scs-api"
         }
       }
     }
