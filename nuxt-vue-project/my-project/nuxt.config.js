@@ -3,21 +3,32 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'my-project',
+    title: 'my-nuxt-project',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: '嘉银证券,最懂你的港股互联网证券交易商,香港证监会认可的持牌法团,提供港股极速开户及交易服务。' },
+      { hid: 'Keywords', name: 'Keywords', content: '嘉银证券,港股开户,港股行情,证券开户'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
-    // css: [
-    //   {
-    //     src: 'static/less/base.sass',
-    //     lang: 'less'
-    //   }
-    // ]
+    // plugins:['~/plugins/axios'],
+    modules: [
+      '@nuxtjs/axios'
+    ],
+    axios: {
+      prefix: '/scs-api',
+      proxy: true
+    },
+    proxy: {
+      "/scs-api": {
+        target: "http://t1-scs.jiayin95.net/scm-web/scs-api",
+        pathRewrite: {
+          "^/scs-api": ""
+        }
+      }
+    }
   },
   /*
   ** Customize the progress bar color
@@ -30,6 +41,8 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    vendor: ['axios'],
+    publicPath: '/scs-api/',
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

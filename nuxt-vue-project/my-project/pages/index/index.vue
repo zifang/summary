@@ -57,6 +57,8 @@
 	</div>
 </template>
 <script>
+	import md5 from 'js-md5';
+	import http from '~/api/axios';
 	export default {
 		data(){
 			return {
@@ -64,6 +66,7 @@
 			}
 		},
 		mounted () {
+			this.getData();
 			this.target = document.body
 			window.addEventListener('scroll', this.showDownloadBox)
 		},
@@ -77,6 +80,16 @@
 				} else {
 					this.showDownload = false
 				}
+			},
+			getData () {
+				this.timestamp = Math.round(new Date().getTime()/1000).toString();
+				let postData = {
+					timestamp: this.timestamp,
+					sign: md5('niwodai-http-key'+this.timestamp)
+				}
+				http('post','/scs-api/openaccount/V2/getOpenAccountFileList.do', postData, 'json').then( res => {
+					console.log(res);
+				})
 			}
 		}
 	}
