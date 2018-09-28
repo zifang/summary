@@ -87,9 +87,6 @@
 		<a>http://fontello.com/</a>
 		<a>http://www.iconfont.cn/search?q=xiala</a>
 		<a>http://www.easyicon.net</a>
-    <!-- 网页特殊符号 -->
-    <span class="title-dis">网页特殊符号</span>
-		<a>http://www.daqianduan.com/tools?t=symbol</a>
     <!-- 毛笔字体自动生成网址 -->
     <span class="title-dis">毛笔字体自动生成网址</span>
 		<a>http://www.zhenhaotv.com/</a>
