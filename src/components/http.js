@@ -19,6 +19,17 @@ axios.defaults.transformResponse = [function (data) {
 
 axios.interceptors.request.use(function (config) {
   console.log('请求开始')
+  //http request拦截器
+  // config => {
+  //   if (store.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+  //       config.headers.Authorization = `token ${store.state.token}`;
+  //   }
+  //   return config;
+  // },
+  // err => {
+  //   return Promise.reject(err);
+  // });
+
   return config
 }, function (error) {
   return Promise.reject(error)
@@ -26,6 +37,21 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use((res) => {
   console.log('请求结束 ')
+  // response => {
+  //   return response;
+  // },
+  // error => {
+  // if (error.response) {
+  //   switch (error.response.status) {
+  //     case 401:
+  //       // 返回 401 清除token信息并跳转到登录页面
+  //       store.commit(types.LOGOUT);
+  //       router.replace({
+  //           path: 'login',
+  //           query: {redirect: router.currentRoute.fullPath}
+  //       })
+  //   }
+  // }
   return res
 }, (error) => {
   return Promise.reject(error)

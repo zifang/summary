@@ -355,3 +355,8 @@ function CloseWebPage(){
   window.close();
  }
 }
+
+//  千分位分隔号
+ps.data.toComma = function(num,cent) {  
+    return (num.toFixed(cent) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');  
+} 
