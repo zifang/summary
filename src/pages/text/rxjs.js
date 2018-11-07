@@ -66,6 +66,13 @@ foo.subscribe(function (x) {
 });
 console.log('after');
 
+// 参考文献
+// 
+// 
+// 参考文献
+https://segmentfault.com/a/1190000008834251
+
+
 observable
 concat 创建一个输出obervable，该observable顺序的发出每个输入observable的所有值
 
@@ -232,3 +239,93 @@ source : (o1                 o2      o3)|
                 concatAll()        
 
 example: --0--1--2--3--4-0-1----0|
+
+/*------------------------------------------*/ 
+filter
+filter 操作符签名：
+
+public filter(predicate: function(value: T, index: number): boolean, 
+    thisArg: any): Observable
+filter 操作符作用：
+
+对 Observable 对象发出的每个值，作为参数调用指定的 predicate 函数，若该函数的返回值为 true，则表示保留该项，若返回值为 false，则舍弃该值。
+
+filter 操作符示例：
+
+var source = Rx.Observable.interval(1000);
+var newest = source.filter(x => x % 2 === 0); 
+
+newest.subscribe(console.log);
+示例 marble 图：
+
+source: -----0-----1-----2-----3-----4-...
+            filter(x => x % 2 === 0)
+newest: -----0-----------2-----------4-...
+以上代码运行后，控制台的输出结果：
+
+0 
+2
+4
+...
+
+/*------------------------------------------*/ 
+take
+take 操作符签名：
+
+public take(count: number): Observable<T>
+take 操作符作用：
+
+用于获取 Observable 对象发出的前 n 项值，取完后就结束。
+
+take 操作符示例：
+
+var source = Rx.Observable.interval(1000);
+var example = source.take(3);
+
+example.subscribe({
+    next: (value) => { console.log(value); },
+    error: (err) => { console.log('Error: ' + err); },
+    complete: () => { console.log('complete'); }
+});
+示例 marble 图：
+
+source : -----0-----1-----2-----3--..
+                take(3)
+example: -----0-----1-----2|
+以上代码运行后，控制台的输出结果：
+
+0
+1
+2
+complete
+/*------------------------------------------*/ 
+first
+first 操作符签名：
+
+public first(predicate: function(value: T, index: number, source: Observable<T>): boolean,      resultSelector: function(value: T, index: number): R, 
+  defaultValue: R): Observable<T | R>
+first 操作符作用：
+
+用于获取 Observable 对象发出的第一个元素，取完后就结束。
+
+first 操作符示例：
+
+var source = Rx.Observable.interval(1000);
+var example = source.first();
+
+example.subscribe({
+    next: (value) => { console.log(value); },
+    error: (err) => { console.log('Error: ' + err); },
+    complete: () => { console.log('complete'); }
+});
+示例 marble 图：
+
+source : -----0-----1-----2-----3--..
+                first()
+example: -----0|
+以上代码运行后，控制台的输出结果：
+
+0
+complete
+
+/*------------------------------------------*/ 

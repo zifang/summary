@@ -18,3 +18,15 @@ export class AboutComponent {
     // your logic
   }
 }
+
+// 模板
+// ngFor,ngIf
+// hero是模板输入变量
+// #heroInput是模板引用变量
+
+<input type="text" #heroInput /> {{heroInput.value}}
+<ul>
+	<li *ngFor="let hero of heros">{{ hero.name }}</li>
+</ul>
+<p *ngIf="heros.length > 3">there are many heros!</p>
+
