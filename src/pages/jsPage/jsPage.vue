@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <div class="input-box">
-      <input type="image" src="http://image.joindata.com/jdfile/e34f523f-612d-4518-94ca-994ee918b26120170427105641.jpg" width="100" height="100" placeholder="niwodai">
-    </div>
+  <div v-highlight>
     <dl>
       <dt>array,obj,set,map的区别简述</dt>
       <dd v-highlight>
@@ -51,12 +48,48 @@
           let map = arr.map(function(item){
             console.log(item + item)
           })
+
+
         </code></pre>
       </dd>
       <dt>shuffle</dt>
       <dd>js打乱数组顺序（如实现音乐的随机播放功能）</dd>
     </dl>
-    <div class="img-box"><img ref="imgs" src="" /></div>
+    <div class="img-box"><img ref="imgs" src="http://image.joindata.com/jdfile/e34f523f-612d-4518-94ca-994ee918b26120170427105641.jpg" /></div>
+
+    <pre><code>
+      jquery ajax链式用法：
+      $.ajax({
+          url: "${ctx}/scm-api/cmsColumn/searchColumn/21c502-00bc-db38-0d77-3371-6ada-5432e9",
+          dataType: 'json',
+          type: 'get'
+      })
+      .done(function(data) {
+          console.log(data)
+      })
+      .fail(function() {
+          alert("失败了...");
+      })
+
+
+      var ajax1 = $.ajax({
+          url: '/test/json/a.js',
+          dataType: 'json',
+          type: 'get'
+      });
+      var ajax2 = $.ajax({
+          url: '/test/json/b.js',
+          dataType: 'json',
+          type: 'get',
+      });
+      $.when(ajax1,ajax2).done(function(d1,d2){
+          var id1 = d1[0].item.id;
+          var id2 = d2[0].item.id;
+          alert('id1='+id1+',   '+ 'id2='+ id2);
+      }).fail(function(){
+          alert('error');
+      });
+    </code></pre>
   </div>
 </template>
 
@@ -67,19 +100,19 @@ export default {
     return {
       msg: 'es6',
       curIndex: 0,
-      arr: []
+      arr: [
+        'http://image.joindata.com/jdfile/e34f523f-612d-4518-94ca-994ee918b26120170427105641.jpg',
+        'http://image.joindata.com/jdfile/c665fe6a-9531-424c-9d3f-aabc46baee0020170427173519.jpg',
+        'http://image.joindata.com/jdfile/b4dd575c-c946-4619-ba23-11c04296404a20170427105626.jpg'
+      ]
     }
   },
-  created () {
-    this.arr[0] = 'http://image.joindata.com/jdfile/e34f523f-612d-4518-94ca-994ee918b26120170427105641.jpg'
-    this.arr[1] = 'http://image.joindata.com/jdfile/c665fe6a-9531-424c-9d3f-aabc46baee0020170427173519.jpg'
-    this.arr[2] = 'http://image.joindata.com/jdfile/b4dd575c-c946-4619-ba23-11c04296404a20170427105626.jpg'
-    setInterval(this.changeImg(), 1000)
+  mounted () {
+    setInterval(() => {
+      this.changeImg()
+    }, 2000)
   },
   methods: {
-    showAlert () {
-      alert('3')
-    },
     changeImg () {
       let imgObj = this.$refs.imgs
       if (imgObj) {
@@ -102,7 +135,7 @@ export default {
     border: 1px solid #ddd
     input
       border: none
-      font-size: 30px
+      font-size: .24rem;
     input::placeholder
       position: relative
       font-size: 20px
@@ -114,12 +147,13 @@ export default {
   .img-box img
     max-width: 100%
   dl
-    font-size: .52rem
+    font-size: .28rem
     dt
       margin-bottom: .15rem
+      color: #333;
     dd
       margin: 0
-      font-size: .36rem
+      font-size: .24rem
   pre
     margin: 0
     code

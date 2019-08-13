@@ -364,7 +364,18 @@
 		Eruda:手机网页前端调试板
 		http://www.oschina.net/project/top_cn_2016
 		掘金：
-		https://gold.xitu.io/welcome/frontend</code></pre>
+		https://gold.xitu.io/welcome/frontend
+
+		滑动事件：http://web.jobbole.com/85375/
+		html5图片上传：http://www.zhangxinxu.com/wordpress/2011/09/%E5%9F%BA%E4%BA%8Ehtml5%E7%9A%84%E5%8F%AF%E9%A2%84%E8%A7%88%E5%A4%9A%E5%9B%BE%E7%89%87ajax%E4%B8%8A%E4%BC%A0/
+		http://www.jb51.net/html5/438976.html
+
+		模板地址
+		https://colorlib.com/polygon/gentelella/form_upload.html
+		在线图片压缩地址
+		http://optimizilla.com/zh/
+		洪晔提供：https://tinypng.com/
+		</code></pre>
   </div>
 </template>
 <style scoped>

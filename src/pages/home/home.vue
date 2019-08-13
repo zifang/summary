@@ -46,6 +46,10 @@
           import('@/pages/cssPage/cssPage.vue').then(cssPage => {
             this.currentView = cssPage.default
           })
+        } else if (key === '3-2') {
+          import('@/pages/cssPage/css3.vue').then(cssPage => {
+            this.currentView = cssPage.default
+          })
         } else if (key === '4') {
           import('@/pages/htmlPage/htmlPage.vue').then(htmlPage => {
             this.currentView = htmlPage.default

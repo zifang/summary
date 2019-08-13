@@ -55,3 +55,42 @@ export default {
     }
   }
 }
+
+//   mounted: {
+//       this.dataList = [];
+//       this.getData();
+//       window.addEventListener('scroll', this.handleScroll);
+//   }
+
+//   handleScroll() {
+//       if ((document.documentElement.scrollTop + window.innerHeight) === document.body.offsetHeight) {
+//           if (this.isDone) {
+//               return;
+//           }
+//           this.getData();
+//       }
+//   }
+
+//   getData() {
+//       const pager = {
+//           page: this.pageNumber,
+//           size: 10
+//       };
+//       MainApi.pageQuery(pager)
+//       .then((res: any) => {
+//           if (res.data.content.length > 0) {
+//               this.dataList = [...this.dataList, ...res.data.content];
+//               this.pageNumber ++;
+//           } else {
+//               this.isDone = true;
+//               this.$toast('暂无要更新的数据');
+//           }
+//       }).catch((res: any) => {
+//       });
+//   }
+
+//   likaiyemain() {
+//     window.scrollTo(0, 0);
+//     window.removeEventListener('scroll', this.handleScroll);
+//   }
+// }

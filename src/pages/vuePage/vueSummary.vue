@@ -34,6 +34,32 @@
         $router.replace({path:`/orderDetail`,query:{sign:'pay'}}
         $route.query.orderId取参数
 
+        <h3>vant在vue中的运用</h3>
+        const merge = require('webpack-merge');
+        const tsImportPluginFactory = require('ts-import-plugin')
+        chainWebpack: config => {
+            config.module
+                .rule('ts')
+                .use('ts-loader')
+                .tap(options => {
+                    options = merge(options, {
+                        transpileOnly: true,
+                        getCustomTransformers: () => ({
+                            before: [
+                                tsImportPluginFactory({
+                                    libraryName: 'vant',
+                                    libraryDirectory: 'es',
+                                    style: true
+                                })
+                            ]
+                        }),
+                        compilerOptions: {
+                            module: 'es2015'
+                        }
+                    });
+                    return options;
+                });
+        },
       </code></pre>
     </section>
     <section>

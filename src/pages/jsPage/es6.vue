@@ -50,6 +50,11 @@
   a 
     color: pink
   .img-box
+    display: flex;
+    flex-wrap: wrap;
     img
+      display: inline-block;
+      flex: 1;
+      width: 50%;
       max-width: 100%
 </style>
