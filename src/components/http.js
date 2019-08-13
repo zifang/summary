@@ -19,7 +19,7 @@ axios.defaults.transformResponse = [function (data) {
 
 axios.interceptors.request.use(function (config) {
   console.log('请求开始')
-  //http request拦截器
+  // http request拦截器
   // config => {
   //   if (store.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
   //       config.headers.Authorization = `token ${store.state.token}`;
